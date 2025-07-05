@@ -36,7 +36,9 @@ const HotelCard = ({ room, index }) => {
             <span>${room.pricePerNight}</span>
             /night
           </p>
-          <button>Book now</button>
+          <button className="text-white bg-primary rounded p-2 hover:cursor-pointer">
+            Book now
+          </button>
         </div>
       </div>
     </Link>
