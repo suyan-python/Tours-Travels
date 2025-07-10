@@ -37,23 +37,24 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setIsScrolled(location.pathname !== "/");
-
     const handleScroll = () => {
-      if (location.pathname === "/") {
-        setIsScrolled(window.scrollY > 10);
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(location.pathname !== "/" ? true : false);
       }
     };
 
+    handleScroll(); // Call initially
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 md:px-10 lg:px-20 transition-all duration-300 ${
+      className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-full px-4 md:px-10 lg:px-20 flex items-center justify-between transition-all duration-500 ease-in-out ${
         isScrolled
-          ? "bg-white/90 backdrop-blur shadow text-primary py-3"
+          ? "bg-white/50 backdrop-blur-sm shadow-lg text-primary py-2.5 rounded-full "
           : "bg-primary text-white py-5"
       }`}
     >
@@ -62,11 +63,13 @@ const Navbar = () => {
         <img
           src={assets.logo}
           alt="logo"
-          className="h-10 transition duration-300"
+          className={`h-10 transition duration-300 ${
+            !isScrolled ? "invert brightness-200" : ""
+          }`}
         />
       </Link>
 
-      {/* Desktop Nav */}
+      {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-6 lg:gap-10">
         {navLinks.map((link, i) => (
           <Link
@@ -81,7 +84,7 @@ const Navbar = () => {
         ))}
 
         <button
-          className={`px-5 py-2 rounded-full border border-transparent hover:border-white hover:bg-primary/10 hover:cursor-pointer transition-colors duration-300 ${
+          className={`px-5 py-2 rounded-full border border-transparent hover:border-white hover:bg-primary/10 transition-colors duration-300 ${
             isScrolled ? "text-primary" : "text-white"
           }`}
           onClick={() => navigate("/owner")}
@@ -90,16 +93,16 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Desktop Right */}
+      {/* Desktop Right Side */}
       <div className="hidden md:flex items-center gap-4">
         <button
-          className={`transition-transform duration-300 hover:scale-110`}
           onClick={() => navigate("/search")}
+          className={`transition-transform duration-300 hover:scale-110`}
         >
           <img
             src={assets.searchIcon}
             alt="search"
-            className="h-6 bg-primary rounded"
+            className={`h-6 rounded ${!isScrolled ? "invert" : ""}`}
           />
         </button>
 
@@ -123,7 +126,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Hamburger */}
       <div className="md:hidden flex items-center gap-4">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -133,7 +136,7 @@ const Navbar = () => {
             src={isMenuOpen ? assets.closeIcon : assets.menuIcon}
             alt="menu"
             className={`h-6 transition duration-300 ${
-              isScrolled ? "" : "invert"
+              !isScrolled ? "invert" : ""
             }`}
           />
         </button>
@@ -141,11 +144,11 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-screen bg-white text-primary flex flex-col items-center justify-center gap-8 text-lg font-medium transition-transform duration-500 z-40 ${
+        className={`hidden fixed top-0 left-0 w-full h-screen bg-white text-primary mg:flex flex-col items-center justify-center gap-8 text-lg font-medium transition-transform duration-500 z-40 ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Cross / Close Button */}
+        {/* Close Button */}
         <button
           className="absolute top-6 right-6 p-2 rounded-full hover:bg-primary/10 transition"
           onClick={() => setIsMenuOpen(false)}
