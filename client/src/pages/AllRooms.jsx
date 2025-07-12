@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { assets, facilityIcons, roomsDummyData } from "../assets/assets";
-// import StarRating from '../components/StarRating';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { assets, facilityIcons, roomsDummyData } from '../assets/assets';
+import StarRating from '../components/StarRating';
 
 const CheckBox = ({ label, selected = false, onChange = () => {} }) => {
   return (
@@ -35,25 +35,15 @@ const AllRooms = () => {
   const [openFilters, setOpenFilters] = useState(false);
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
   const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
-  const [selectedSortOption, setSelectedSortOption] = useState("");
+  const [selectedSortOption, setSelectedSortOption] = useState('');
 
-  const roomTypes = ["Single Bed", "Double Bed", "Luxury Room", "Family Suite"];
-  const priceRanges = [
-    "0 to 500",
-    "500 to 1000",
-    "1000 to 2000",
-    "2000 to 3000",
-  ];
-  const sortOptions = [
-    "Price Low to High",
-    "Price High to Low",
-    "Newest First",
-  ];
+  const roomTypes = ['Single Bed', 'Double Bed', 'Luxury Room', 'Family Suite'];
+  const priceRanges = ['0 to 500', '500 to 1000', '1000 to 2000', '2000 to 3000'];
+  const sortOptions = ['Price Low to High', 'Price High to Low', 'Newest First'];
 
   const handleCheckboxChange = (checked, label, type) => {
-    const updater =
-      type === "room" ? setSelectedRoomTypes : setSelectedPriceRanges;
-    const current = type === "room" ? selectedRoomTypes : selectedPriceRanges;
+    const updater = type === 'room' ? setSelectedRoomTypes : setSelectedPriceRanges;
+    const current = type === 'room' ? selectedRoomTypes : selectedPriceRanges;
 
     if (checked) {
       updater([...current, label]);
@@ -69,7 +59,7 @@ const AllRooms = () => {
   const handleClearFilters = () => {
     setSelectedRoomTypes([]);
     setSelectedPriceRanges([]);
-    setSelectedSortOption("");
+    setSelectedSortOption('');
   };
 
   return (
@@ -79,8 +69,7 @@ const AllRooms = () => {
         <div className="flex flex-col items-start text-left mb-8">
           <h1 className="font-playfair text-4xl md:text-[40px]">Hotel Rooms</h1>
           <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-[700px]">
-            Take advantage of our limited-time offers and special packages to
-            enhance your stay and create unforgettable memories.
+            Take advantage of our limited-time offers and special packages to enhance your stay and create unforgettable memories.
           </p>
         </div>
 
@@ -111,15 +100,11 @@ const AllRooms = () => {
                 {room.hotel.name}
               </p>
               <div className="flex items-center">
-                {/* <StarRating /> */}
+                <StarRating />
                 <p className="ml-2">200+ reviews</p>
               </div>
               <div className="flex items-center gap-1 text-gray-500 mt-2 text-sm">
-                <img
-                  src={assets.locationIcon}
-                  alt="location-icon"
-                  className="w-4 h-4"
-                />
+                <img src={assets.locationIcon} alt="location-icon" className="w-4 h-4" />
                 <span>{room.hotel.address}</span>
               </div>
               {/* Amenities */}
@@ -129,18 +114,12 @@ const AllRooms = () => {
                     key={index}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#F5F5FF]/70"
                   >
-                    <img
-                      src={facilityIcons[item]}
-                      alt={item}
-                      className="w-5 h-5"
-                    />
+                    <img src={facilityIcons[item]} alt={item} className="w-5 h-5" />
                     <p className="text-xs">{item}</p>
                   </div>
                 ))}
               </div>
-              <p className="text-xl font-medium text-gray-700">
-                ${room.pricePerNight} /night
-              </p>
+              <p className="text-xl font-medium text-gray-700">${room.pricePerNight} /night</p>
             </div>
           </div>
         ))}
@@ -151,11 +130,8 @@ const AllRooms = () => {
         <div className="flex items-center justify-between mb-4">
           <p className="font-semibold text-gray-800">FILTERS</p>
           <div className="text-xs cursor-pointer">
-            <span
-              className="lg:hidden"
-              onClick={() => setOpenFilters(!openFilters)}
-            >
-              {openFilters ? "HIDE" : "SHOW"}
+            <span className="lg:hidden" onClick={() => setOpenFilters(!openFilters)}>
+              {openFilters ? 'HIDE' : 'SHOW'}
             </span>
             <span className="hidden lg:block" onClick={handleClearFilters}>
               CLEAR
@@ -163,11 +139,7 @@ const AllRooms = () => {
           </div>
         </div>
 
-        <div
-          className={`${
-            openFilters ? "h-auto" : "h-0 lg:h-auto"
-          } overflow-hidden transition-all duration-700`}
-        >
+        <div className={`${openFilters ? 'h-auto' : 'h-0 lg:h-auto'} overflow-hidden transition-all duration-700`}>
           <div className="pt-3">
             <p className="font-medium text-gray-800 pb-2">Room Types</p>
             {roomTypes.map((type, index) => (
@@ -175,9 +147,7 @@ const AllRooms = () => {
                 key={index}
                 label={type}
                 selected={selectedRoomTypes.includes(type)}
-                onChange={(checked, label) =>
-                  handleCheckboxChange(checked, label, "room")
-                }
+                onChange={(checked, label) => handleCheckboxChange(checked, label, 'room')}
               />
             ))}
           </div>
@@ -189,9 +159,7 @@ const AllRooms = () => {
                 key={index}
                 label={range}
                 selected={selectedPriceRanges.includes(range)}
-                onChange={(checked, label) =>
-                  handleCheckboxChange(checked, label, "price")
-                }
+                onChange={(checked, label) => handleCheckboxChange(checked, label, 'price')}
               />
             ))}
           </div>
