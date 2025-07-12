@@ -14,7 +14,7 @@ const Title = ({ title, subTitle, align, font }) => {
       >
         {title}
       </h1>
-      <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-96">
+      <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">
         {subTitle}
       </p>
     </div>

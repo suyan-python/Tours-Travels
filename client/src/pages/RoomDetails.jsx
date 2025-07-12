@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  roomsDummyData,
-  facilityIcons,
-  roomCommonData,
-  assets,
-} from "../assets/assets";
-// import StarRating from "../components/StarRating";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { roomsDummyData, facilityIcons, roomCommonData, assets } from '../assets/assets';
+import StarRating from '../components/StarRating';
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -28,7 +23,7 @@ const RoomDetails = () => {
       {/* Room Title & Type */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
         <h1 className="text-3xl md:text-4xl font-playfair">
-          {room.hotel.name}{" "}
+          {room.hotel.name}{' '}
           <span className="font-inter text-sm">({room.roomType})</span>
         </h1>
         <p className="text-xs font-inter py-1.5 px-3 text-white bg-orange-500 rounded-full">
@@ -38,17 +33,13 @@ const RoomDetails = () => {
 
       {/* Rating */}
       <div className="flex items-center gap-1 mt-2">
-        {/* <StarRating /> */}
+        <StarRating />
         <p className="ml-2">200+ reviews</p>
       </div>
 
       {/* Address */}
       <div className="flex items-center gap-1 text-gray-500 mt-2">
-        <img
-          src={assets.locationIcon}
-          alt="location-icon"
-          className="w-4 h-4"
-        />
+        <img src={assets.locationIcon} alt="location-icon" className="w-4 h-4" />
         <span>{room.hotel.address}</span>
       </div>
 
@@ -70,9 +61,7 @@ const RoomDetails = () => {
                 src={image}
                 alt="Room"
                 className={`w-full rounded-xl shadow-md object-cover cursor-pointer ${
-                  mainImage === image
-                    ? "outline outline-3 outline-orange-500"
-                    : ""
+                  mainImage === image ? 'outline outline-3 outline-orange-500' : ''
                 }`}
               />
             ))}
@@ -155,11 +144,7 @@ const RoomDetails = () => {
       <div className="mt-10 space-y-5">
         {roomCommonData.map((spec, index) => (
           <div key={index} className="flex items-start gap-2">
-            <img
-              src={spec.icon}
-              alt={`${spec.title}-icon`}
-              className="w-6 h-6"
-            />
+            <img src={spec.icon} alt={`${spec.title}-icon`} className="w-6 h-6" />
             <div>
               <p className="text-base">{spec.title}</p>
               <p className="text-gray-500">{spec.description}</p>
@@ -171,10 +156,8 @@ const RoomDetails = () => {
       {/* Description Paragraph */}
       <div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500">
         <p>
-          Guests will be allocated on the ground floor according to
-          availability. You get a comfortable two-bedroom apartment with a true
-          city feeling. The price quoted is for two guests. Please mark the
-          correct number of guests to get the exact price for groups.
+          Guests will be allocated on the ground floor according to availability. You get a comfortable two-bedroom apartment with a true city feeling.
+          The price quoted is for two guests. Please mark the correct number of guests to get the exact price for groups.
         </p>
       </div>
 
@@ -188,11 +171,9 @@ const RoomDetails = () => {
           />
         </div>
         <div>
-          <p className="text-lg md:text-xl">
-            Hosted by {room.hotel.owner.name}
-          </p>
+          <p className="text-lg md:text-xl">Hosted by {room.hotel.owner.name}</p>
           <div className="flex items-center mt-1">
-            {/* <StarRating /> */}
+            <StarRating />
             <p className="ml-2">200+ reviews</p>
           </div>
           <button className="px-6 py-2.5 mt-4 rounded text-white bg-primary hover:bg-primary-dull transition-all cursor-pointer">

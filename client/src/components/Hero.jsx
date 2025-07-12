@@ -3,11 +3,11 @@ import { assets, cities } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 x1: px-32 text-white bg-[url("/src/assets/heroImage.png")] bg-no-repeat bg-cover bg-center h-screen'>
+    <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 x1:px-32 text-white bg-[url("/src/assets/heroImage.png")] bg-no-repeat bg-cover bg-center h-screen'>
       <p className="bg-primary/50 px-3.5 py-1 rounded-full mt-20">
         The Ultimate Hotel Experience
       </p>
-      <h1 className="font-playfair text-2x1 md:text-5x1 md:text-[56px] md: leading- [56px] font-bold md: font-extrabold max-w-xl mt-4">
+      <h1 className="font-playfair text-2x1 md:text-5x1 md:text-[56px] md: leading- [56px] font-bold md:font-extrabold max-w-xl mt-4">
         Discover Your Perfect Gateway Destination
       </h1>
       <p className="max-w-130 mt-2 text-sm md:text-base">
