@@ -18,15 +18,14 @@ const app = express();
 
 // Enable CORS
 app.use(cors());
+app.use(express.json());
+app.use(clerkMiddleware());
 
 app.post(
   "/api/clerk",
   express.raw({ type: "application/json" }),
   clerkWebhooks
 );
-
-app.use(express.json());
-app.use(clerkMiddleware());
 
 // Routes
 app.get("/", (req, res) => res.send("API is working"));

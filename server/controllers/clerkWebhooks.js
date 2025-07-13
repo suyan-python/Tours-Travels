@@ -14,7 +14,7 @@ const clerkWebhooks = async (req, res) => {
     const evt = wh.verify(payload, headers);
     const { data, type } = evt;
 
-    console.log("📨 Webhook event received:", type);
+    console.log("Webhook event received:", type);
 
     const userData = {
       _id: data.id,
@@ -40,8 +40,15 @@ const clerkWebhooks = async (req, res) => {
 
     res.status(200).json({ success: true });
   } catch (err) {
-    console.error("❌ Webhook Error:", err.message);
+    console.error("Webhook Error:", err.message);
     res.status(400).json({ success: false, message: err.message });
+
+    console.log("🧵 Raw headers:", req.headers);
+    console.log("📦 Raw body length:", req.body.length);
+
+    // After verification:
+    console.log("📨 Event received:", type);
+    console.log("User data:", data);
   }
 };
 
