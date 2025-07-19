@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { useClerk } from "@clerk/clerk-react";
-import { UserButton } from "@clerk/clerk-react";
+import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
 import { useAppContext } from "../context/AppContext";
 
 const BookIcon = () => (
@@ -28,16 +27,18 @@ const BookIcon = () => (
 const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Hotels", path: "/rooms" },
-    { name: "Experience", path: "/" },
+    { name: "Packages", path: "/rooms" },
+    { name: "Hotels", path: "/" },
     { name: "About", path: "/" },
   ];
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openSignIn } = useClerk();
+  const { user } = useUser();
+
   const location = useLocation();
-  const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
+  const { navigate, isOwner, setShowHotelReg } = useAppContext();
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -57,9 +58,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${
+      className={`fixed top-0 left-0  w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${
         isScrolled
-          ? "bg-white shadow-md text-pr  py-3 md:py-4 rounded-3xl top-2"
+          ? "bg-white/80 shadow-md text-gray-700  py-3 md:py-4"
           : "py-4 md:py-6"
       }`}
     >
@@ -68,17 +69,16 @@ const Navbar = () => {
         <img
           src={assets.logo}
           alt="logo"
-          className={`h-9 ${isScrolled && " opacity-80"}`}
+          className={`h-9 ${isScrolled && "invert opacity-80"}`}
         />
       </Link>
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-4 lg:gap-8">
         {navLinks.map((link, i) => (
-          <Link
+          <a
             key={i}
-            to={link.path}
-            onClick={() => setIsMenuOpen(false)}
+            href={link.path}
             className={`group flex flex-col gap-0.5 ${
               isScrolled ? "text-gray-700" : "text-white"
             }`}
@@ -89,9 +89,8 @@ const Navbar = () => {
                 isScrolled ? "bg-gray-700" : "bg-white"
               } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
             />
-          </Link>
+          </a>
         ))}
-
         {user && (
           <button
             className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
@@ -101,7 +100,7 @@ const Navbar = () => {
               isOwner ? navigate("/owner") : setShowHotelReg(true)
             }
           >
-            {isOwner ? "Dashboard" : "List Your Hotel"}
+            {isOwner ? "Dashboard" : "List Your Packages"}
           </button>
         )}
       </div>
@@ -129,7 +128,7 @@ const Navbar = () => {
         ) : (
           <button
             onClick={openSignIn}
-            className="bg-primary text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500"
+            className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500 hover:cursor-pointer"
           >
             Login
           </button>
@@ -173,9 +172,9 @@ const Navbar = () => {
         </button>
 
         {navLinks.map((link, i) => (
-          <Link key={i} to={link.path} onClick={() => setIsMenuOpen(false)}>
+          <a key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
             {link.name}
-          </Link>
+          </a>
         ))}
 
         {user && (
@@ -185,7 +184,7 @@ const Navbar = () => {
               isOwner ? navigate("/owner") : setShowHotelReg(true)
             }
           >
-            {isOwner ? "Dashboard" : "List Your Hotel"}
+            {isOwner ? "Dashboard" : "List Your Packages"}
           </button>
         )}
 

@@ -12,6 +12,25 @@ const HotelReg = () => {
   const [contact, setContact] = useState("");
   const [city, setCity] = useState("");
 
+  // const onSubmitHandler = async (event)=>{
+  // try {
+  // event.preventDefault();
+  // const {data} = await axios.post(`/api/hotels/`, {name, contact, address, city}, {headers: {Authorization: `Bearer ${await getToken()}
+  // `}})
+
+  // if(data.success) {
+  // toast.success(data.message)
+  //  setIsOwner(true)
+  // setShowHotelReg(false);
+  // }else{
+  // toast.error(data.message)
+  // }
+  // }catch (error) {
+  //     toast.error(data.message)
+
+  // }
+  // }
+
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
@@ -66,12 +85,12 @@ const HotelReg = () => {
             className="absolute top-4 right-4 h-4 w-4 cursor-pointer"
             onClick={() => setShowHotelReg(false)}
           />
-          <p className="text-2xl font-semibold mt-6">Register Your Hotel</p>
+          <p className="text-2xl font-semibold mt-6">Register Your Package</p>
           {/* Hotel Name */}
           <div className="w-full mt-4">
             <label htmlFor="name" className="font-medium text-gray-500">
               {" "}
-              Hotel Name
+              Package Name
             </label>
             <input
               id="name"

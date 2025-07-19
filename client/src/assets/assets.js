@@ -73,7 +73,7 @@ export const assets = {
   totalRevenueIcon,
 };
 
-export const cities = ["Dubai", "Singapore", "New York", "London"];
+export const cities = ["Kathmandu", "Pokhara", "Mustang ", "Rasuwa"];
 
 // Exclusive Offers Dummy Data
 export const exclusiveOffers = [
@@ -114,7 +114,7 @@ export const testimonials = [
       "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200",
     rating: 5,
     review:
-      "I've used many booking platforms before, but none compare to the personalized experience and attention to detail that QuickStay provides.",
+      "I've used many travel booking platforms before, but none compare to the personalized experience and attention to detail that Tour & Travels provides.",
   },
   {
     id: 2,
@@ -124,7 +124,7 @@ export const testimonials = [
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
     rating: 4,
     review:
-      "QuickStay exceeded my expectations. The booking process was seamless, and the hotels were absolutely top-notch. Highly recommended!",
+     "Tour & Travels exceeded my expectations. The booking process was seamless, and the hotels were absolutely top-notch. Highly recommended!",
   },
   {
     id: 3,
@@ -134,7 +134,7 @@ export const testimonials = [
       "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200",
     rating: 5,
     review:
-      "Amazing service! I always find the best luxury accommodations through QuickStay. Their recommendations never disappoint!",
+     "Amazing service! I always find the best luxury accommodations through Tour & Travels. Their recommendations never disappoint!",
   },
 ];
 
@@ -151,18 +151,18 @@ export const facilityIcons = {
 export const roomCommonData = [
   {
     icon: assets.homeIcon,
-    title: "Clean & Safe Stay",
-    description: "A well-maintained and hygienic space just for you.",
+    title:"Stress-Free Experience",
+    description:  "From pickup to lodging, we ensure your travel is smooth and relaxing.",
   },
   {
     icon: assets.badgeIcon,
-    title: "Enhanced Cleaning",
-    description: "This host follows Staybnb's strict cleaning standards.",
+    title: "Trusted Travel Safety",
+    description: "We prioritize your safety with well-organized routes and verified local support.",
   },
   {
     icon: assets.locationFilledIcon,
-    title: "Excellent Location",
-    description: "90% of guests rated the location 5 stars.",
+    title: "Scenic Locations",
+    description:  "Enjoy breathtaking views and serene landscapes across Nepal’s top regions.",
   },
   {
     icon: assets.heartIcon,
