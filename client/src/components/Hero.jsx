@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { assets, cities } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
+import { FiSearch } from "react-icons/fi";
+
+const stats = [
+  { label: "Destinations", value: "120+" },
+  { label: "Happy Travelers", value: "15,000+" },
+  { label: "5-Star Reviews", value: "1,250+" },
+];
 
 const Hero = () => {
   const { navigate, getToken, axios, setSearchedCities } = useAppContext();
   const [destination, setDestination] = useState("");
+  const [contentVisible, setContentVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setContentVisible(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const onSearch = async (e) => {
     e.preventDefault();
@@ -24,101 +37,177 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-black/70 via-black/50 to-black/60 backdrop-blur-md">
       {/* Background Video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        preload="auto"
+        className="absolute top-0 left-0 w-full h-full object-cover brightness-75 "
       >
-        <source src="/videos/sea.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src="/videos/milkyway.mp4" type="video/mp4" />
       </video>
 
-      {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white h-full bg-black/40">
-        <p className="bg-[#49B9FF]/50 px-3.5 py-1 rounded-full mt-20">
-          Your Journey Begins Here
-        </p>
-        <h1 className="font-playfair text-2xl md:text-5xl md:leading-[56px] font-bold max-w-xl mt-4">
-          Adventure Awaits in Nepal
-        </h1>
-        <p className="max-w-xl mt-2 text-sm md:text-base">
-          Discover custom tours, adventures, and unforgettable experiences made
-          just for you. Let your journey begin today.
-        </p>
+      {/* Overlay Content */}
+      <div
+        className={`relative z-10 flex flex-col md:flex-row justify-center items-center h-full text-white px-6 md:px-20 max-w-full mx-auto
+        transition-opacity duration-1000 ease-in-out bg-gradient-to-b from-red-800/70 via-black/40  backdrop-blur-sm
+        ${contentVisible ? "opacity-100" : "opacity-0"}`}
+      >
+        {/* Left Content */}
+        <div className="flex-1 max-w-xl">
+          {/* Tagline */}
+          <p className="bg-primary/90 px-5 py-1 rounded-full text-sm font-semibold w-fit drop-shadow-lg uppercase tracking-wide">
+            Your Journey Begins Here
+          </p>
 
-        <form
-          onSubmit={onSearch}
-          className="bg-white text-gray-500 rounded-lg px-6 py-4 mt-8 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto"
-        >
-          <div>
-            <div className="flex items-center gap-2">
-              <img src={assets.calenderIcon} alt="" className="h-4" />
-              <label htmlFor="destinationInput">Destination</label>
+          {/* Headline */}
+          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold leading-tight max-w-3xl mt-6 drop-shadow-xl">
+            Adventure Awaits in Nepal
+          </h1>
+
+          {/* Description */}
+          <p className="max-w-xl mt-4 text-gray-300 text-lg md:text-xl leading-relaxed drop-shadow-md">
+            Discover custom tours, adventures, and unforgettable experiences
+            made just for you. Explore hidden gems, immerse yourself in rich
+            culture, and create memories that last a lifetime.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-4 mt-8">
+            <button
+              onClick={() => navigate("/about")}
+              className="bg-primary hover:bg-primary-dark transition-colors text-white font-semibold rounded-md px-6 py-3 shadow-lg focus:outline-none focus:ring-4 focus:ring-primary/60"
+            >
+              Learn More
+            </button>
+            <button
+              onClick={() => navigate("/rooms")}
+              className="bg-white hover:bg-gray-100 transition-colors text-primary font-semibold rounded-md px-6 py-3 shadow-lg focus:outline-none focus:ring-4 focus:ring-primary/40"
+            >
+              Explore Packages
+            </button>
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-wrap gap-8 mt-14">
+            {stats.map(({ label, value }) => (
+              <div key={label} className="flex flex-col items-center">
+                <span className="text-3xl font-bold">{value}</span>
+                <span className="uppercase text-xs tracking-wide text-gray-300">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Search Form */}
+          <form
+            onSubmit={onSearch}
+            className="bg-white text-gray-700 rounded-xl px-6 py-5 mt-16 shadow-lg w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-5"
+            aria-label="Search tours and destinations"
+          >
+            {/* Destination */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="destinationInput"
+                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
+              >
+                <img src={assets.calenderIcon} alt="" className="h-4" />
+                Destination
+              </label>
+              <input
+                type="text"
+                id="destinationInput"
+                list="destinations"
+                placeholder="Type here"
+                required
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder-gray-400 transition"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                aria-required="true"
+              />
+              <datalist id="destinations">
+                {cities.map((city, idx) => (
+                  <option value={city} key={idx} />
+                ))}
+              </datalist>
             </div>
-            <input
-              onChange={(e) => setDestination(e.target.value)}
-              value={destination}
-              list="destinations"
-              id="destinationInput"
-              type="text"
-              className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
-              placeholder="Type here"
-              required
-            />
-            <datalist id="destinations">
-              {cities.map((city, index) => (
-                <option value={city} key={index} />
-              ))}
-            </datalist>
-          </div>
 
-          <div>
-            <div className="flex items-center gap-2">
-              <img src={assets.calenderIcon} alt="" className="h-4" />
-              <label htmlFor="checkIn">Check in</label>
+            {/* Check In */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="checkIn"
+                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
+              >
+                <img src={assets.calenderIcon} alt="" className="h-4" />
+                Check in
+              </label>
+              <input
+                type="date"
+                id="checkIn"
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
+              />
             </div>
-            <input
-              id="checkIn"
-              type="date"
-              className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
-            />
-          </div>
 
-          <div>
-            <div className="flex items-center gap-2">
-              <img src={assets.calenderIcon} alt="" className="h-4" />
-              <label htmlFor="checkOut">Check out</label>
+            {/* Check Out */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="checkOut"
+                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
+              >
+                <img src={assets.calenderIcon} alt="" className="h-4" />
+                Check out
+              </label>
+              <input
+                type="date"
+                id="checkOut"
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
+              />
             </div>
-            <input
-              id="checkOut"
-              type="date"
-              className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none"
-            />
-          </div>
 
-          <div className="flex md:flex-col max-md:gap-2 max-md:items-center">
-            <label htmlFor="guests">Guests</label>
-            <input
-              min={1}
-              max={4}
-              id="guests"
-              type="number"
-              className="rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none max-w-16"
-              placeholder="0"
-            />
-          </div>
+            {/* Guests */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="guests"
+                className="text-sm font-semibold mb-1 text-gray-700"
+              >
+                Guests
+              </label>
+              <input
+                type="number"
+                id="guests"
+                min={1}
+                max={4}
+                placeholder="1"
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
+              />
+            </div>
 
-          <button className="flex items-center justify-center gap-1 rounded-md bg-black py-3 px-4 text-white my-auto cursor-pointer max-md:w-full max-md:py-1">
-            <img src={assets.searchIcon} alt="searchIcon" className="h-7" />
-            <span>Search</span>
-          </button>
-        </form>
+            {/* Submit */}
+            <button
+              type="submit"
+              className="bg-primary text-white flex items-center justify-center p-3 rounded-md hover:bg-primary-dark transition-colors focus:outline-none focus:ring-4 focus:ring-primary/60"
+              aria-label="Search tours and destinations"
+            >
+              <FiSearch size={20} />
+            </button>
+          </form>
+        </div>
+
+        {/* Right Side Logo */}
+        <div className="hidden md:flex flex-1 justify-center items-center px-10">
+          <img
+            src="/logo1.png"
+            alt="Logo"
+            className="max-h-[300px] object-contain drop-shadow-lg"
+            loading="lazy"
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

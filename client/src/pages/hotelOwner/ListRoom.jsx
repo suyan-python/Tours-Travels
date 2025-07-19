@@ -56,57 +56,45 @@ const ListRoom = () => {
       />
       <p className="text-gray-500 mt-8">All Packages</p>
 
-      <div className="w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll mt-3 mb-35">
+      <div className="w-full max-w-3xl text-left mt-3 mb-35 rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md shadow-lg max-h-80 overflow-y-scroll">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white/10 backdrop-blur-sm">
             <tr>
-              <th className="py-3 px-4 text-gray-800 font-medium">Name</th>
-              <th
-                className="py-3 px-4 text-gray-800 font-medium
-max-sm:hidden"
-              >
+              <th className="py-3 px-4 text-gray-100 font-medium">Name</th>
+              <th className="py-3 px-4 text-gray-100 font-medium max-sm:hidden">
                 Facility
               </th>
-              <th className="py-3 px-4 text-gray-800 font-medium">
+              <th className="py-3 px-4 text-gray-100 font-medium">
                 Price / day
               </th>
-              <th
-                className="py-3 px-4 text-gray-800 font-medium
-text-center"
-              >
+              <th className="py-3 px-4 text-gray-100 font-medium text-center">
                 Actions
               </th>
-            </tr>{" "}
+            </tr>
           </thead>
-
-          {/* <tbody>
-
-
-</tbody> */}
 
           <tbody className="text-sm">
             {rooms.map((item, index) => (
-              <tr key={index}>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+              <tr key={index} className="hover:bg-white/5 transition">
+                <td className="py-3 px-4 text-white border-t border-white/20">
                   {item.packageName}
                 </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden">
+                <td className="py-3 px-4 text-white border-t border-white/20 max-sm:hidden">
                   {item.amenities.join(",")}
                 </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300 ">
+                <td className="py-3 px-4 text-white border-t border-white/20">
                   {currency}
                   {item.pricePerNight}
                 </td>
-
-                <td className="py-3 px-4 border-t border-gray-300 text-sm text-red-500 text-center">
-                  <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+                <td className="py-3 px-4 border-t border-white/20 text-sm text-white text-center">
+                  <label className="relative inline-flex items-center cursor-pointer gap-3">
                     <input
                       onChange={() => toggleAvailability(item._id)}
                       type="checkbox"
                       className="sr-only peer"
                       checked={item.isAvailable}
                     />
-                    <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200"></div>
+                    <div className="w-12 h-7 bg-white/20 rounded-full peer peer-checked:bg-blue-500 transition-colors duration-200"></div>
                     <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
                   </label>
                 </td>

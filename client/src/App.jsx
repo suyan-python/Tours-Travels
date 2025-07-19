@@ -21,6 +21,15 @@ const App = () => {
 
   return (
     <div>
+      {/* <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+      >
+        <source src="/videos/mountain.mp4" type="video/mp4" />
+      </video> */}
       <Toaster />
       {!isOwnerPath && <Navbar />}
       {showHotelReg && <HotelReg />}

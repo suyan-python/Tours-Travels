@@ -90,18 +90,20 @@ const AddRoom = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="mb-35">
+    <form
+      onSubmit={onSubmitHandler}
+      className="mb-36 px-4 sm:px-8 backdrop-blur-md py-8 rounded-3xl"
+    >
       <Title
         align="left"
         font="outfit"
         title="Add Package"
-        subTitle="Fill in the details carefully and accurate package details, pricing, and amenities, to enhance the user booking experience."
+        subTitle="Fill in the details carefully and accurately to enhance the booking experience with appealing packages and amenities."
       />
 
-      {/* Hotel Name */}
-      <div className="w-1/2 mt-9">
-        <label htmlFor="name" className="font-medium text-gray-500">
-          {" "}
+      {/* Package Name */}
+      <div className="w-full sm:w-2/3 mt-10">
+        <label htmlFor="name" className="font-semibold text-gray-600">
           Package Name
         </label>
         <input
@@ -109,41 +111,45 @@ const AddRoom = () => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           type="text"
-          placeholder="Type here"
-          className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light"
+          placeholder="e.g. Himalayan Adventure Retreat"
+          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400"
           required
         />
       </div>
 
       {/* Address */}
-      <div className="w-1/2 mt-4">
-        <label htmlFor="address" className="font-medium text-gray-500">
+      <div className="w-full sm:w-2/3 mt-6">
+        <label htmlFor="address" className="font-semibold text-gray-600">
           Address
         </label>
         <input
+          id="address"
           onChange={(e) => setAddress(e.target.value)}
           value={address}
-          id="address"
           type="text"
-          placeholder="Type here"
-          className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light"
+          placeholder="e.g. Pokhara, Nepal"
+          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400"
           required
         />
       </div>
 
-      {/* Upload Area For Images */}
-      <p className="text-gray-800 mt-10">Images</p>
-      <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
+      {/* Upload Area */}
+      <p className="mt-10 font-semibold text-gray-700">Upload Images</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
         {Object.keys(images).map((key) => (
-          <label htmlFor={`roomImage${key}`} key={key}>
+          <label
+            htmlFor={`roomImage${key}`}
+            key={key}
+            className="cursor-pointer border border-dashed border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm overflow-hidden hover:shadow-md transition"
+          >
             <img
-              className="max-h-13 cursor-pointer opacity-80"
               src={
                 images[key]
                   ? URL.createObjectURL(images[key])
                   : assets.uploadArea
               }
-              alt=""
+              className="w-full h-32 object-cover opacity-80"
+              alt="upload"
             />
             <input
               type="file"
@@ -158,31 +164,31 @@ const AddRoom = () => {
         ))}
       </div>
 
-      <div className="w-full flex max-sm:flex-col sm:gap-4 mt-4">
-        <div className="flex-1 max-w-48">
-          <p className="text-gray-800 mt-4">Package Type</p>
+      {/* Package Type & Price */}
+      <div className="flex flex-col sm:flex-row gap-6 mt-8">
+        <div className="flex-1">
+          <p className="text-gray-700 font-semibold mb-1">Package Type</p>
           <select
             value={inputs.roomType}
             onChange={(e) => setInputs({ ...inputs, roomType: e.target.value })}
-            className="border opacity-70 border-gray-300 mt-1 rounded p-2 w-full"
+            className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >
-            {" "}
             <option value="">Select Package Type</option>
-            <option value="3 Nights/ 4 Days">3 Nights/ 4 Days</option>{" "}
-            <option value="4 Nights/ 5 Days">4 Nights/ 5 Days</option>{" "}
-            <option value="5 Nights/ 6 Days">5 Nights/ 6 Days</option>{" "}
-            <option value="6 Nights/ 7 Days">6 Nights/ 7 Days</option>{" "}
+            <option value="3 Nights/ 4 Days">3 Nights / 4 Days</option>
+            <option value="4 Nights/ 5 Days">4 Nights / 5 Days</option>
+            <option value="5 Nights/ 6 Days">5 Nights / 6 Days</option>
+            <option value="6 Nights/ 7 Days">6 Nights / 7 Days</option>
           </select>
         </div>
 
-        <div>
-          <p className="mt-4 text-gray-800">
-            Price <span className="text-xs">/day</span>
+        <div className="w-40">
+          <p className="text-gray-700 font-semibold mb-1">
+            Price <span className="text-sm text-gray-400">/day</span>
           </p>
           <input
             type="number"
             placeholder="0"
-            className="border border-gray-300 mt-1 rounded p-2 w-24"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={inputs.pricePerNight}
             onChange={(e) =>
               setInputs({ ...inputs, pricePerNight: Number(e.target.value) })
@@ -191,10 +197,11 @@ const AddRoom = () => {
         </div>
       </div>
 
-      <p className="text-gray-800 mt-4">Amenities</p>
-      <div className="flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm">
+      {/* Amenities */}
+      <p className="text-gray-700 font-semibold mt-10 mb-2">Select Amenities</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-800 max-w-lg">
         {Object.keys(inputs.amenities).map((amenity, index) => (
-          <div key={index}>
+          <label key={index} className="flex items-center gap-2">
             <input
               type="checkbox"
               id={`amenities${index + 1}`}
@@ -209,12 +216,14 @@ const AddRoom = () => {
                 })
               }
             />
-            <label htmlFor={`amenities${index + 1}`}> {amenity}</label>{" "}
-          </div>
+            <span className="text-sm">{amenity}</span>
+          </label>
         ))}
       </div>
+
       <button
-        className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer"
+        type="submit"
+        className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl mt-10 transition-all shadow-lg disabled:opacity-50"
         disabled={loading}
       >
         {loading ? "Adding..." : "Add Package"}

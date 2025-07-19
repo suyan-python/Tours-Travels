@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, [user]);
 
   return (
-    <div className="mb-35">
+    <div className="mb-36 px-4 sm:px-8">
       <Title
         align="left"
         font="outfit"
@@ -44,32 +44,35 @@ const Dashboard = () => {
         subTitle="Monitor your package listings, track bookings and analyze revenue—all in one place. Stay updated with real-time insights to ensure smooth operations."
       />
 
-      <div className="flex gap-4 my-8">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-10">
         {/* Total Bookings */}
-        <div className="bg-primary/3 border border-primary/10 rounded flex p-4 pr-8">
+        <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex items-center shadow-md">
           <img
             src={assets.totalBookingIcon}
-            alt=""
-            className="max-sm:hidden h-10"
+            alt="Bookings"
+            className="h-10 hidden sm:block"
           />
-          <div className="flex flex-col sm:ml-4 font-medium">
-            <p className="text-blue-500 text-lg">Total Bookings</p>
-            <p className="text-neutral-400 text-base">
+          <div className="ml-4">
+            <p className="text-gray-700 text-lg font-semibold">
+              Total Bookings
+            </p>
+            <p className="text-2xl text-indigo-600 font-bold">
               {dashboardData.totalBookings}
             </p>
           </div>
         </div>
 
         {/* Total Revenue */}
-        <div className="bg-primary/3 border border-primary/10 rounded flex p-4 pr-8">
+        <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex items-center shadow-md">
           <img
             src={assets.totalRevenueIcon}
-            alt=""
-            className="max-sm:hidden h-10"
+            alt="Revenue"
+            className="h-10 hidden sm:block"
           />
-          <div className="flex flex-col sm:ml-4 font-medium">
-            <p className="text-blue-500 text-lg">Total Revenue</p>
-            <p className="text-neutral-400 text-base">
+          <div className="ml-4">
+            <p className="text-gray-700 text-lg font-semibold">Total Revenue</p>
+            <p className="text-2xl text-indigo-600 font-bold">
               {currency}
               {dashboardData.totalRevenue}
             </p>
@@ -78,50 +81,50 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Bookings */}
-      <h2 className="text-xl text-blue-950/70 font-medium mb-5">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-5">
         Recent Bookings
       </h2>
 
-      <div className="w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll ">
-        <table className="w-full">
-          <thead className="bg-gray-50">
+      <div className="overflow-x-auto rounded-2xl shadow-md border border-gray-200 bg-white/40 backdrop-blur-sm max-h-[340px] overflow-y-scroll">
+        <table className="min-w-full text-sm text-gray-700">
+          <thead className="bg-white/30 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
             <tr>
-              <th className="py-3 px-4 text-gray-800 font-medium">User Name</th>
-              <th className="py-3 px-4 text-gray-800 font-medium max-sm:hidden">
+              <th className="text-left px-6 py-4 font-semibold">User Name</th>
+              <th className="text-left px-6 py-4 font-semibold max-sm:hidden">
                 Package Name
               </th>
-              <th className="py-3 px-4 text-gray-800 font-medium text-center">
+              <th className="text-center px-6 py-4 font-semibold">
                 Total Amount
               </th>
-              <th className="py-3 px-4 text-gray-800 font-medium text-center">
+              <th className="text-center px-6 py-4 font-semibold">
                 Payment Status
               </th>
             </tr>
           </thead>
-
-          <tbody className="text-sm">
+          <tbody>
             {dashboardData.bookings.map((item, index) => (
-              <tr key={index}>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {item.user.username}
-                </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden">
+              <tr
+                key={index}
+                className="border-t border-gray-200 hover:bg-white/20 transition"
+              >
+                <td className="px-6 py-4">{item.user.username}</td>
+                <td className="px-6 py-4 max-sm:hidden">
                   {item.room?.packageName || "N/A"}
                 </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300 text-center">
+                <td className="px-6 py-4 text-center">
                   {currency}
                   {item.totalPrice}
                 </td>
-                <td className="py-3 px-4 text-center border-t border-gray-300">
-                  <button
-                    className={`py-1 px-3 text-xs rounded-full ${
+                <td className="px-6 py-4 text-center">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${
                       item.isPaid
-                        ? "bg-green-200 text-green-600"
-                        : "bg-amber-200 text-yellow-600"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
                     }`}
                   >
                     {item.isPaid ? "Completed" : "Pending"}
-                  </button>
+                  </span>
                 </td>
               </tr>
             ))}
