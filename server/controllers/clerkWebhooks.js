@@ -17,7 +17,9 @@ const clerkWebhooks = async (req, res) => {
     // Convert raw buffer to JSON
     // const parsedBody = JSON.parse(req.body.toString());
     // const { data, type } = parsedBody;
-    const { data, type } = req.body;
+
+    const parsedBody = JSON.parse(req.body.toString());
+    const { data, type } = parsedBody;
 
     console.log("📩 Clerk Webhook Received:");
     console.log("Event Type:", type);

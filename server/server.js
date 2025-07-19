@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
+import bodyParser from "body-parser"; // Add this
 import connectDB from "./configs/db.js";
 import { clerkMiddleware } from "@clerk/express";
 import clerkWebhooks from "./controllers/clerkWebhooks.js";
@@ -11,27 +12,24 @@ import roomRouter from "./routes/roomRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
 
-connectDB(); // Wait for MongoDB connection before starting
-connectCloudinary(); // Initialize Cloudinary
+connectDB();
+connectCloudinary();
 
 const app = express();
-
 app.use(cors());
 
-//  API to listen to Stripe Webhooks
-// app.post(
-//   "/api/stripe",
-//   express.raw({ type: "application/json" }),
-//   stripeWebhooks
-// );
+// 👉 Apply raw body parser ONLY for Clerk Webhook
+app.use(
+  "/api/clerk",
+  bodyParser.raw({ type: "application/json" }),
+  clerkWebhooks
+);
 
+// 👉 Now apply global middleware
 app.use(express.json());
 app.use(clerkMiddleware());
 
-// Clerk webhook route
-app.use("/api/clerk", clerkWebhooks);
-
-// API routes
+// Other routes
 app.use("/api/user", userRouter);
 app.use("/api/hotels", hotelRouter);
 app.use("/api/rooms", roomRouter);
