@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
-
 import Navbar from "../../components/hotelOwner/Navbar";
 import Sidebar from "../../components/hotelOwner/Sidebar";
 import { Outlet } from "react-router-dom";
-import { useAppContext } from "../../context/AppContext";
+import { useAppContext } from "../../context/AppContext.jsx";
 
 const Layout = () => {
   const { isOwner, navigate } = useAppContext();
 
-  //   useEffect(() => {
-  //     if (!isOwner) {
-  //       navigate("/");
-  //     }
-  //   }, [isOwner]);
+  useEffect(() => {
+    // Only redirect after we know isOwner is false (not undefined/null)
+    if (isOwner === false) {
+      navigate("/");
+    }
+  }, [isOwner]);
+
+  if (isOwner === undefined) {
+    return null; // or a loader while checking
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -26,4 +30,5 @@ const Layout = () => {
     </div>
   );
 };
+
 export default Layout;

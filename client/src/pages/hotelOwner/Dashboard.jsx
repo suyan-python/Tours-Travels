@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-
 import Title from "../../components/Title";
 import { assets } from "../../assets/assets";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const Dashboard = () => {
-  const { currency, user, getToken, toast, axios } = useAppContext();
+  const { currency, user, getToken, axios } = useAppContext();
 
   const [dashboardData, setDashboardData] = useState({
     bookings: [],
@@ -35,80 +43,84 @@ const Dashboard = () => {
     }
   }, [user]);
 
+  const chartData = dashboardData.bookings.slice(0, 5).map((b) => ({
+    name: b.user.username,
+    amount: b.totalPrice,
+  }));
+
   return (
     <div className="mb-36 px-4 sm:px-8">
       <Title
         align="left"
         font="outfit"
-        title="Dashboard"
-        subTitle="Monitor your package listings, track bookings and analyze revenue—all in one place. Stay updated with real-time insights to ensure smooth operations."
+        title="Admin Dashboard"
+        subTitle="Track your listings and bookings through intelligent visuals and insights."
       />
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-10">
-        {/* Total Bookings */}
-        <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex items-center shadow-md">
-          <img
-            src={assets.totalBookingIcon}
-            alt="Bookings"
-            className="h-10 hidden sm:block"
-          />
-          <div className="ml-4">
-            <p className="text-gray-700 text-lg font-semibold">
-              Total Bookings
-            </p>
-            <p className="text-2xl text-indigo-600 font-bold">
-              {dashboardData.totalBookings}
-            </p>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10">
+        <div className="bg-gradient-to-br from-indigo-500/50 to-purple-600/20 text-white rounded-2xl p-6 shadow-xl">
+          <p className="text-lg font-semibold">Total Bookings</p>
+          <p className="text-3xl font-bold mt-2">
+            {dashboardData.totalBookings}
+          </p>
         </div>
 
-        {/* Total Revenue */}
-        <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex items-center shadow-md">
-          <img
-            src={assets.totalRevenueIcon}
-            alt="Revenue"
-            className="h-10 hidden sm:block"
-          />
-          <div className="ml-4">
-            <p className="text-gray-700 text-lg font-semibold">Total Revenue</p>
-            <p className="text-2xl text-indigo-600 font-bold">
-              {currency}
-              {dashboardData.totalRevenue}
-            </p>
-          </div>
+        <div className="bg-gradient-to-br from-teal-500/30 to-emerald-600/40 text-white rounded-2xl p-6 shadow-xl">
+          <p className="text-lg font-semibold">Total Revenue</p>
+          <p className="text-3xl font-bold mt-2">
+            {currency}
+            {dashboardData.totalRevenue}
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-br from-yellow-400/50 to-orange-500/60 text-white rounded-2xl p-6 shadow-xl">
+          <p className="text-lg font-semibold">Recent Users</p>
+          <p className="text-3xl font-bold mt-2">
+            {dashboardData.bookings.length}
+          </p>
         </div>
       </div>
 
-      {/* Recent Bookings */}
-      <h2 className="text-2xl font-semibold text-gray-800 mb-5">
-        Recent Bookings
-      </h2>
+      {/* Chart Section */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg mb-10">
+        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+          Recent Booking Revenue
+        </h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="amount" fill="#6366f1" radius={[10, 10, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
-      <div className="overflow-x-auto rounded-2xl shadow-md border border-gray-200 bg-white/40 backdrop-blur-sm max-h-[340px] overflow-y-scroll">
+      {/* Recent Bookings Table */}
+      <div className="overflow-x-auto rounded-2xl shadow-lg border border-gray-200 bg-white/30 max-h-[360px] overflow-y-auto">
         <table className="min-w-full text-sm text-gray-700">
-          <thead className="bg-white/30 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
+          <thead className="bg-gray-100 sticky top-0 z-10">
             <tr>
-              <th className="text-left px-6 py-4 font-semibold">User Name</th>
+              <th className="text-left px-6 py-4 font-semibold">User</th>
               <th className="text-left px-6 py-4 font-semibold max-sm:hidden">
-                Package Name
+                Package
               </th>
-              <th className="text-center px-6 py-4 font-semibold">
-                Total Amount
-              </th>
-              <th className="text-center px-6 py-4 font-semibold">
-                Payment Status
-              </th>
+              <th className="text-center px-6 py-4 font-semibold">Amount</th>
+              <th className="text-center px-6 py-4 font-semibold">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-slate-200">
             {dashboardData.bookings.map((item, index) => (
               <tr
                 key={index}
-                className="border-t border-gray-200 hover:bg-white/20 transition"
+                className="border-t border-gray-200 hover:bg-gray-50 transition"
               >
-                <td className="px-6 py-4">{item.user.username}</td>
-                <td className="px-6 py-4 max-sm:hidden">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {item.user.username}
+                </td>
+                <td className="px-6 py-4 max-sm:hidden whitespace-nowrap">
                   {item.room?.packageName || "N/A"}
                 </td>
                 <td className="px-6 py-4 text-center">

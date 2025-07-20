@@ -10,7 +10,31 @@
   --color-primary: #dc143c;
 }
 body {
-  background-color: #98152f;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url("./assets/background.jpg");
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  /* background-position: center; */
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Dim layer: increase alpha for darker dim */
+  backdrop-filter: blur(5px); /* Optional: adds background blur */
+  z-index: -1;
 }
 
 * {
@@ -19,4 +43,9 @@ body {
 
 .font-playfair {
   font-family: Playfair !important;
+}
+
+/* styles/glass.css or global.css */
+.glass-card {
+  @apply backdrop-blur-sm bg-white/10 shadow-xl;
 }

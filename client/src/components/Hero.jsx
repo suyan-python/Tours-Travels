@@ -21,19 +21,35 @@ const Hero = () => {
 
   const onSearch = async (e) => {
     e.preventDefault();
-    navigate(`/rooms?destination=${destination}`);
 
-    await axios.post(
-      "/api/user/store-recent-search",
-      { recentSearchedCity: destination },
-      { headers: { Authorization: `Bearer ${await getToken()}` } }
-    );
+    const cleanDestination = destination.trim().toLowerCase();
+    if (!cleanDestination) return alert("Please enter a destination");
 
-    setSearchedCities((prev) => {
-      const updated = [...prev, destination];
-      if (updated.length > 3) updated.shift();
-      return updated;
-    });
+    navigate(`/rooms?destination=${cleanDestination}`);
+
+    try {
+      const token = await getToken();
+      if (!token) {
+        console.warn("Token not found");
+        return;
+      }
+
+      await axios.post(
+        "/api/user/store-recent-search",
+        { recentSearchedCity: cleanDestination },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setSearchedCities((prev) => {
+        const updated = [...prev, cleanDestination];
+        if (updated.length > 3) updated.shift();
+        return updated;
+      });
+    } catch (err) {
+      console.error("Error storing recent search:", err);
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const AddRoom = () => {
-  const { axios, getToken } = useAppContext();
+  const { axios, getToken, currency } = useAppContext();
 
   const [name, setName] = useState(""); // Add this line at the top inside AddRoom component
 
@@ -56,6 +56,7 @@ const AddRoom = () => {
         (key) => inputs.amenities[key]
       );
       formData.append("amenities", JSON.stringify(amenities));
+
       // Adding Images to FormData
       Object.keys(images).forEach((key) => {
         images[key] && formData.append("images", images[key]);
@@ -103,7 +104,7 @@ const AddRoom = () => {
 
       {/* Package Name */}
       <div className="w-full sm:w-2/3 mt-10">
-        <label htmlFor="name" className="font-semibold text-gray-600">
+        <label htmlFor="name" className="font-semibold text-slate-300">
           Package Name
         </label>
         <input
@@ -112,14 +113,14 @@ const AddRoom = () => {
           value={name}
           type="text"
           placeholder="e.g. Himalayan Adventure Retreat"
-          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white"
           required
         />
       </div>
 
       {/* Address */}
       <div className="w-full sm:w-2/3 mt-6">
-        <label htmlFor="address" className="font-semibold text-gray-600">
+        <label htmlFor="address" className="font-semibold text-slate-300">
           Address
         </label>
         <input
@@ -128,13 +129,13 @@ const AddRoom = () => {
           value={address}
           type="text"
           placeholder="e.g. Pokhara, Nepal"
-          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white"
           required
         />
       </div>
 
       {/* Upload Area */}
-      <p className="mt-10 font-semibold text-gray-700">Upload Images</p>
+      <p className="mt-10 font-semibold text-slate-300">Upload Images</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
         {Object.keys(images).map((key) => (
           <label
@@ -167,11 +168,11 @@ const AddRoom = () => {
       {/* Package Type & Price */}
       <div className="flex flex-col sm:flex-row gap-6 mt-8">
         <div className="flex-1">
-          <p className="text-gray-700 font-semibold mb-1">Package Type</p>
+          <p className="text-slate-300 font-semibold mb-1">Package Type</p>
           <select
             value={inputs.roomType}
             onChange={(e) => setInputs({ ...inputs, roomType: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/30 text-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >
             <option value="">Select Package Type</option>
             <option value="3 Nights/ 4 Days">3 Nights / 4 Days</option>
@@ -182,13 +183,14 @@ const AddRoom = () => {
         </div>
 
         <div className="w-40">
-          <p className="text-gray-700 font-semibold mb-1">
-            Price <span className="text-sm text-gray-400">/day</span>
+          <p className="text-slate-300 font-semibold mb-1">
+            {currency}Price{" "}
+            <span className="text-sm text-slate-400">/person</span>
           </p>
           <input
             type="number"
             placeholder="0"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl text-white bg-white/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={inputs.pricePerNight}
             onChange={(e) =>
               setInputs({ ...inputs, pricePerNight: Number(e.target.value) })
@@ -198,8 +200,10 @@ const AddRoom = () => {
       </div>
 
       {/* Amenities */}
-      <p className="text-gray-700 font-semibold mt-10 mb-2">Select Amenities</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-800 max-w-lg">
+      <p className="text-slate-300 font-semibold mt-10 mb-2">
+        Select Amenities
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-300 max-w-lg">
         {Object.keys(inputs.amenities).map((amenity, index) => (
           <label key={index} className="flex items-center gap-2">
             <input

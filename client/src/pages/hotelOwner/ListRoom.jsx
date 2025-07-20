@@ -65,7 +65,7 @@ const ListRoom = () => {
                 Facility
               </th>
               <th className="py-3 px-4 text-gray-100 font-medium">
-                Price / day
+                Price / person
               </th>
               <th className="py-3 px-4 text-gray-100 font-medium text-center">
                 Actions

@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <RecommendedHotels />
       <FeatureDestination />
+      <RecommendedHotels />
       <ExclusiveOffers />
       <Testimonial />
       <NewsLetter />
