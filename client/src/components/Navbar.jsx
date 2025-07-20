@@ -77,7 +77,7 @@ const Navbar = () => {
           transition-all duration-500
           ${
             isScrolled
-              ? "h-14 rounded-full max-w-[720px] px-8 bg-white"
+              ? "h-14 rounded-full max-w-[720px] md:max-w-[100px] mx-36 px-8 bg-white"
               : "h-20 rounded-none max-w-full px-6 md:px-12"
           }`}
         style={{ width: "100%", maxWidth: isScrolled ? "1200px" : "100%" }}
@@ -188,7 +188,7 @@ const Navbar = () => {
               src={assets.menuIcon}
               alt="menu"
               className={`h-5 w-5 transition-all duration-500 ${
-                isScrolled ? "invert-0" : "invert"
+                isScrolled ? "invert" : ""
               }`}
             />
           </button>

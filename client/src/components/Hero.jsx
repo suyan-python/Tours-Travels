@@ -69,7 +69,7 @@ const Hero = () => {
       {/* Overlay Content */}
       <div
         className={`relative z-10 flex flex-col md:flex-row justify-center items-center h-full text-white px-6 md:px-20 max-w-full mx-auto
-        transition-opacity duration-1000 ease-in-out bg-gradient-to-b from-red-800/70 via-black/40  backdrop-blur-sm
+        transition-opacity duration-1000 ease-in-out bg-gradient-to-b from-red-800/70 via-black/40  backdrop-blur-sm pt-40
         ${contentVisible ? "opacity-100" : "opacity-0"}`}
       >
         {/* Left Content */}
@@ -122,28 +122,30 @@ const Hero = () => {
           {/* Search Form */}
           <form
             onSubmit={onSearch}
-            className="bg-white text-gray-700 rounded-xl px-6 py-5 mt-16 shadow-lg w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-5"
-            aria-label="Search tours and destinations"
+            className="w-full max-w-3xl mx-auto mt-16  bg-white  text-gray-800 rounded-2xl p-6 shadow-xl flex items-center gap-4"
           >
-            {/* Destination */}
-            <div className="flex flex-col">
+            {/* Destination Input */}
+            <div className="flex flex-col flex-grow">
               <label
                 htmlFor="destinationInput"
-                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
+                className="text-sm font-medium mb-2 flex items-center gap-2 text-gray-800"
               >
-                <img src={assets.calenderIcon} alt="" className="h-4" />
-                Destination
+                <img
+                  src={assets.locationIcon}
+                  alt="Location"
+                  className="h-4 w-4"
+                />
+                Search Your Destination
               </label>
               <input
                 type="text"
                 id="destinationInput"
                 list="destinations"
-                placeholder="Type here"
+                placeholder="e.g. Pokhara, Kathmandu"
                 required
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder-gray-400 transition"
+                className="w-full px-4 py-3 rounded-lg text-sm border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                aria-required="true"
               />
               <datalist id="destinations">
                 {cities.map((city, idx) => (
@@ -152,61 +154,11 @@ const Hero = () => {
               </datalist>
             </div>
 
-            {/* Check In */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="checkIn"
-                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
-              >
-                <img src={assets.calenderIcon} alt="" className="h-4" />
-                Check in
-              </label>
-              <input
-                type="date"
-                id="checkIn"
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
-              />
-            </div>
-
-            {/* Check Out */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="checkOut"
-                className="text-sm font-semibold mb-1 flex items-center gap-2 text-gray-700"
-              >
-                <img src={assets.calenderIcon} alt="" className="h-4" />
-                Check out
-              </label>
-              <input
-                type="date"
-                id="checkOut"
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
-              />
-            </div>
-
-            {/* Guests */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="guests"
-                className="text-sm font-semibold mb-1 text-gray-700"
-              >
-                Guests
-              </label>
-              <input
-                type="number"
-                id="guests"
-                min={1}
-                max={4}
-                placeholder="1"
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
-              />
-            </div>
-
-            {/* Submit */}
+            {/* Search Button */}
             <button
               type="submit"
-              className="bg-primary text-white flex items-center justify-center p-3 rounded-md hover:bg-primary-dark transition-colors focus:outline-none focus:ring-4 focus:ring-primary/60"
-              aria-label="Search tours and destinations"
+              className="bg-primary text-white flex items-center justify-center px-5 py-3 rounded-lg hover:bg-primary-dark transition-colors focus:outline-none focus:ring-4 focus:ring-primary/50"
+              aria-label="Search"
             >
               <FiSearch size={20} />
             </button>
