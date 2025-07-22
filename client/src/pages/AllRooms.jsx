@@ -174,47 +174,47 @@ const AllRooms = () => {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col-reverse lg:flex-row gap-12 pt-28 md:pt-32 px-4 md:px-16 lg:px-24 xl:px-32">
-      {/* Left Side - Room Listings */}
+    <div className="flex flex-col lg:flex-row gap-10 pt-28 md:pt-32 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24">
+      {/* Left - Room Listings */}
       <div className="w-full lg:w-3/4">
-        {/* Header */}
-        <div className="flex flex-col items-start text-left mb-10">
-          <h1 className="font-playfair text-4xl md:text-5xl text-white">
+        <div className="mb-10">
+          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl text-white">
             Our Packages
           </h1>
-          <p className="text-base md:text-lg text-gray-300 mt-3 max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-300 mt-3 max-w-2xl leading-relaxed">
             Don’t miss our exclusive tour deals and limited-time packages
             designed to elevate your Nepal journey.
           </p>
         </div>
 
-        {/* Room Cards */}
         {filteredRooms.map((room) => (
           <div
             key={room._id}
-            className="flex flex-col md:flex-row items-start py-10 gap-6 border-b border-gray-600/30 last:border-0 group transition duration-300"
+            className="flex flex-col md:flex-row gap-6 py-8 border-b border-gray-700/30 last:border-0 group transition duration-300"
           >
+            {/* Image */}
             <img
+              loading="lazy"
               onClick={() => {
                 navigate(`/rooms/${room._id}`);
                 window.scrollTo(0, 0);
               }}
               src={room.images[0]}
-              alt="hotel-img"
-              title="View Room Details"
-              className="h-60 w-full md:w-1/2 object-cover rounded-xl shadow-lg cursor-pointer hover:opacity-90 transition"
+              alt={room.packageName}
+              className="h-52 sm:h-60 w-full md:w-1/2 object-cover rounded-xl shadow-md cursor-pointer hover:opacity-90 transition"
             />
 
+            {/* Details */}
             <div className="md:w-1/2 flex flex-col gap-3">
-              <p
+              <h2
                 onClick={() => {
                   navigate(`/rooms/${room._id}`);
                   window.scrollTo(0, 0);
                 }}
-                className="text-white text-2xl md:text-3xl font-playfair cursor-pointer hover:underline"
+                className="text-white text-xl sm:text-2xl md:text-3xl font-playfair cursor-pointer hover:underline"
               >
                 {room.packageName}
-              </p>
+              </h2>
 
               <div className="flex items-center text-gray-300 text-sm">
                 <StarRating />
@@ -230,26 +230,26 @@ const AllRooms = () => {
                 <span>{room.address}</span>
               </div>
 
-              {/* Amenities */}
               <div className="flex flex-wrap gap-2 mt-2">
                 {room.amenities.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 text-white/80 text-xs"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/10 text-white/80 text-xs"
                   >
                     <img
                       src={facilityIcons[item]}
                       alt={item}
-                      className="w-4 h-4 text-white"
+                      className="w-4 h-4"
                     />
                     <p>{item}</p>
                   </div>
                 ))}
               </div>
 
-              <p className="text-lg font-semibold text-crimson mt-1 text-slate-300">
-                ${room.pricePerNight}{" "}
+              <p className="text-lg font-semibold text-crimson mt-2 text-slate-300">
+                ${room.pricePerNight}
                 <span className="text-sm font-normal text-white/60">
+                  {" "}
                   / person
                 </span>
               </p>
@@ -258,33 +258,17 @@ const AllRooms = () => {
         ))}
       </div>
 
-      {/* Right Side - Filters */}
-      <div className="bg-white/10 backdrop-blur-xl border border-white/20 text-white w-full max-w-sm rounded-2xl p-6 shadow-lg sticky top-28 self-start z-10">
-        <div className="flex items-center justify-between mb-5">
-          <p className="font-semibold text-lg">Filters</p>
-          <div
-            className="text-sm cursor-pointer text-red-300 hover:underline"
-            onClick={clearFilters}
-          >
-            Clear All
-          </div>
-        </div>
-
-        {/* Filter Content */}
-        <div>
-          {/* Popular Filters */}
-          <div className="mb-6">
-            <p className="font-medium text-base mb-2">Popular Filters</p>
-            {roomTypes.map((room, index) => (
-              <CheckBox
-                key={index}
-                label={room}
-                selected={selectedFilters.roomType.includes(room)}
-                onChange={(checked) =>
-                  handleFilterChange(checked, room, "roomType")
-                }
-              />
-            ))}
+      {/* Right - Filters */}
+      <div className="w-full lg:w-1/4">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-2xl p-6 shadow-md sticky top-28 z-10">
+          <div className="flex items-center justify-between mb-5">
+            <p className="font-semibold text-lg">Filters</p>
+            <button
+              className="text-sm text-red-300 hover:underline"
+              onClick={clearFilters}
+            >
+              Clear All
+            </button>
           </div>
 
           {/* Price Range */}
@@ -302,7 +286,7 @@ const AllRooms = () => {
             ))}
           </div>
 
-          {/* Sort By */}
+          {/* Sort Options */}
           <div>
             <p className="font-medium text-base mb-2">Sort By</p>
             {sortOptions.map((option, index) => (

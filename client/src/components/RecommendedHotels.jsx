@@ -30,18 +30,14 @@ const RecommendedHotels = () => {
 
   return (
     recommended.length > 0 && (
-      <section className="relative z-10 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-white/10 backdrop-blur-md md:backdrop-blur-lg rounded-2xl md:rounded-3xl shadow-md md:shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 mx-2 sm:mx-6 md:mx-16 my-12 sm:my-16 md:my-24 overflow-hidden">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 -z-10 bg-black/40 rounded-2xl md:rounded-3xl" />
-
+      <section className="relative z-10 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-slate-100 rounded-2xl md:rounded-3xl shadow-md border border-gray-200 mx-2 sm:mx-6 md:mx-16 my-12 sm:my-16 md:my-24 overflow-hidden">
         {/* Title & Description */}
         <div className="text-center mb-12 sm:mb-16 max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary font-playfair">
-            Recommended Packages
-          </h2>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-200 leading-relaxed">
+          <Title title="Recommended Packages" />
+          <p className="mt-4 text-base text-gray-600 leading-relaxed">
             Discover our handpicked selection of exceptional packages across
-            Nepal, offering unforgettable travel experiences.
+            Nepal, offering unforgettable travel experiences curated just for
+            you.
           </p>
         </div>
 
@@ -59,7 +55,7 @@ const RecommendedHotels = () => {
               navigate("/rooms");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="px-5 py-3 rounded-lg bg-white/20 text-white border border-white/30 hover:bg-white/30 transition-all duration-300 text-sm sm:text-base"
+            className="px-6 py-3 rounded-lg bg-primary text-white hover:bg-primary-dark transition-all duration-300 text-sm sm:text-base shadow-md hover:cursor-pointer"
           >
             Explore More Packages
           </button>

@@ -1,74 +1,109 @@
+import React from "react";
+import { assets } from "../assets/assets";
 
-import React from 'react'
-import { assets } from '../assets/assets'
-
-const Footer = () => { 
-    return ( 
-   <div className='bg-[#F6F9FC] text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
-            <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
-                <div className='max-w-80'>
-                    <img src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9' />
-                    <p className='text-sm'>
-                      Journey through Nepal’s finest travel spots, handpicked for comfort, culture, and adventure.
-                    </p>
-                    <div className='flex items-center gap-3 mt-4'>
-                
-                      <img src={assets.instagramIcon} alt="instagram-icon" className='w-6' />
-                      <img src={assets.facebookIcon} alt="facebook-icon" className='w-6' />
-                      <img src={assets.twitterIcon} alt="twitter-icon" className='w-6' />
-                      <img src={assets.linkendinIcon} alt="linkedin-icon" className='w-6' />
-
-                      
-                    </div>
-                </div>
-
-                <div>
-                    <p className='font-playfair text-lg text-gray-800'>COMPANY</p>
-                    <ul className='mt-3 flex flex-col gap-2 text-sm'>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Partners</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <p className='font-playfair text-lg text-gray-800'>SUPPORT</p>
-                    <ul className='mt-3 flex flex-col gap-2 text-sm'>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Safety Information</a></li>
-                        <li><a href="#">Cancellation Options</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Accessibility</a></li>
-                    </ul>
-                </div>
-
-                <div className='max-w-80'>
-                    <p className='font-playfair text-lg text-gray-800'>STAY UPDATED</p>
-                    <p className='mt-3 text-sm'>
-                        Subscribe to our newsletter for inspiration and special offers.
-                    </p>
-                    <div className='flex items-center mt-4'>
-                        <input type="text" className='bg-white rounded-l border border-gray-300 h-9 px-3 outline-none' placeholder='Your email' />
-                        <button className='flex items-center justify-center bg-black h-9 w-9 aspect-square rounded-r'>
-                            {/* Arrow icon */}
-                          <img src={assets.arrowIcon} alt="arrow-icon" className='w-3.5 invert'/>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <hr className='border-gray-300 mt-8' />
-            <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
-                <p>© {new Date().getFullYear()} Tour&Travels. All rights reserved.</p>
-                <ul className='flex items-center gap-4'>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Sitemap</a></li>
-                </ul>
-            </div>
+const Footer = () => {
+  return (
+    <div className="bg-[#F6F9FC] text-gray-600 pt-12 px-6 md:px-16 lg:px-24 xl:px-32">
+      {/* Top section */}
+      <div className="flex flex-wrap justify-between gap-12 md:gap-8">
+        {/* Branding */}
+        <div className="max-w-sm">
+          <img src={assets.logo} alt="logo" className="mb-4 h-9" />
+          <p className="text-sm leading-relaxed">
+            Journey through Nepal’s finest travel spots, handpicked for comfort,
+            culture, and adventure.
+          </p>
+          <div className="flex gap-3 mt-5">
+            {[
+              { src: assets.instagramIcon, alt: "Instagram" },
+              { src: assets.facebookIcon, alt: "Facebook" },
+              { src: assets.twitterIcon, alt: "Twitter" },
+              { src: assets.linkendinIcon, alt: "LinkedIn" },
+            ].map((icon, i) => (
+              <div
+                key={i}
+                className="w-8 h-8 rounded-full bg-white border hover:bg-black hover:invert transition flex items-center justify-center"
+              >
+                <img src={icon.src} alt={icon.alt} className="w-4" />
+              </div>
+            ))}
+          </div>
         </div>
-    )
-}
 
-export default Footer
+        {/* Company links */}
+        <div>
+          <p className="font-semibold text-gray-800 mb-3">Company</p>
+          <ul className="text-sm space-y-2">
+            {["About", "Careers", "Press", "Blog", "Partners"].map(
+              (item, i) => (
+                <li key={i}>
+                  <a href="#" className="hover:text-black transition">
+                    {item}
+                  </a>
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+
+        {/* Support links */}
+        <div>
+          <p className="font-semibold text-gray-800 mb-3">Support</p>
+          <ul className="text-sm space-y-2">
+            {[
+              "Help Center",
+              "Safety Information",
+              "Cancellation Options",
+              "Contact Us",
+              "Accessibility",
+            ].map((item, i) => (
+              <li key={i}>
+                <a href="#" className="hover:text-black transition">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Newsletter */}
+        <div className="max-w-sm">
+          <p className="font-semibold text-gray-800 mb-3">Stay Updated</p>
+          <p className="text-sm mb-4 leading-relaxed">
+            Subscribe to our newsletter for travel inspiration and exclusive
+            offers.
+          </p>
+          <div className="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              className="flex-1 px-4 h-10 text-sm bg-white border border-gray-300 rounded-l-md outline-none"
+            />
+            <button className="bg-black rounded-r-md px-3 flex items-center justify-center">
+              <img src={assets.arrowIcon} alt="Submit" className="w-4 invert" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <hr className="border-gray-300 mt-10" />
+
+      {/* Bottom section */}
+      <div className="flex flex-col md:flex-row justify-between items-center text-sm gap-3 py-6">
+        <p>© {new Date().getFullYear()} Tour&Travels. All rights reserved.</p>
+        <ul className="flex items-center gap-4">
+          {["Privacy", "Terms", "Sitemap"].map((item, i) => (
+            <li key={i}>
+              <a href="#" className="hover:text-black transition">
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;

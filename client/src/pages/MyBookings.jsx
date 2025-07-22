@@ -86,7 +86,7 @@ const MyBookings = () => {
         {bookings.map((booking) => (
           <div
             key={booking._id}
-            className="glass-card grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full py-6 border border-white/20 rounded-xl shadow-md mb-6"
+            className="glass-card grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full py-6 border border-white/20 rounded-xl shadow-md mb-6 px-8"
           >
             {/* Package Info */}
             <div className="flex flex-col md:flex-row">

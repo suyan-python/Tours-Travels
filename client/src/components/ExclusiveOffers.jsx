@@ -1,67 +1,62 @@
 import React from "react";
 import Title from "./Title";
-import { assets } from "../assets/assets";
-import { exclusiveOffers } from "../assets/assets";
+import { assets, exclusiveOffers } from "../assets/assets";
 
 const ExclusiveOffers = () => {
   return (
-    <section className="flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-24 bg-gray-50">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1280px]">
+    <section className="w-full bg-gradient-to-b from-gray-100 via-white to-gray-100 py-20 px-4 md:px-10 lg:px-20 xl:px-32">
+      <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <Title
           align="left"
           title="Exclusive Offers"
           subTitle="Take advantage of our limited-time offers and special packages to enhance your journey and create unforgettable memories."
         />
         <button
-          className="group flex items-center gap-2 font-semibold text-primary hover:text-primary-dark transition-colors mt-8 md:mt-0"
+          className="flex items-center gap-2 font-semibold text-primary hover:text-primary-dark transition-all group"
           aria-label="View all offers"
         >
           View All Offers
           <img
             src={assets.arrowIcon}
             alt="arrow icon"
-            className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+            className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
           />
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-14 max-w-[1280px] w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16 max-w-[1280px] mx-auto">
         {exclusiveOffers.map((item) => (
           <div
             key={item._id}
-            className="relative flex flex-col justify-between rounded-2xl shadow-lg overflow-hidden group cursor-pointer transform transition-transform duration-300 hover:scale-[1.03]"
-            style={{
-              backgroundImage: `url(${item.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
+            className="relative group rounded-3xl overflow-hidden shadow-2xl bg-cover bg-center h-[420px] transform hover:scale-[1.02] transition-transform duration-300"
+            style={{ backgroundImage: `url(${item.image})` }}
             aria-label={`${item.title} - ${item.priceOff}% off`}
           >
-            {/* Price Off Badge */}
-            <span className="absolute top-4 left-4 bg-primary px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md">
+            {/* Glass Badge */}
+            <span className="absolute top-5 left-5 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg z-20">
               {item.priceOff}% OFF
             </span>
 
-            {/* Content overlay */}
-            <div className="bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 flex flex-col h-full justify-end rounded-2xl">
-              <h3 className="text-white text-2xl font-playfair font-semibold mb-2 drop-shadow-md">
+            {/* Glassmorphic Overlay */}
+            <div className="absolute inset-0 flex flex-col justify-end p-6 bg-black/40 transition-all duration-300">
+              <h3 className="text-white text-2xl font-semibold font-playfair mb-2 drop-shadow-lg">
                 {item.title}
               </h3>
-              <p className="text-white/90 mb-4 text-sm leading-relaxed drop-shadow-sm">
+              <p className="text-white/90 text-sm sm:text-base mb-2 leading-snug">
                 {item.description}
               </p>
-              <p className="text-white/60 text-xs mb-6 tracking-wide">
+              <p className="text-white/60 text-xs mb-4">
                 Expires {item.expiryDate}
               </p>
               <button
-                className="inline-flex items-center gap-2 font-semibold text-white bg-primary rounded-full px-5 py-2 shadow-lg hover:bg-primary-dark transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-primary px-5 py-2 rounded-full hover:bg-primary-dark transition-colors shadow-lg"
                 aria-label={`View offers for ${item.title}`}
               >
                 View Offers
                 <img
-                  className="w-4 h-4 filter invert transition-transform duration-300 group-hover:translate-x-1"
                   src={assets.arrowIcon}
-                  alt="arrow icon"
+                  alt="arrow"
+                  className="w-4 h-4 filter invert transition-transform duration-300 group-hover:translate-x-1"
                 />
               </button>
             </div>

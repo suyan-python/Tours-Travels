@@ -1,27 +1,49 @@
-import React from 'react'
-import { assets } from '../assets/assets'
-import Title from './Title'
+import React from "react";
+import { assets } from "../assets/assets";
+import Title from "./Title";
 
 const NewsLetter = () => {
-return (
- <div className="flex flex-col items-center max-w-5xl lg:w-full rounded-2xl px-4 py-12 md:py-16 mx-2 lg:mx-auto my-30 bg-gray-900 text-white">
+  return (
+    <div className="relative overflow-hidden isolate flex flex-col items-center max-w-5xl w-full rounded-3xl px-6 py-14 md:py-20 mx-auto my-24 bg-white/10  border border-white/20 shadow-xl text-white">
+      {/* Background Gradient Blob */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-40 -left-40 w-[480px] h-[480px] bg-gradient-to-br from-[#dc143c] to-[#ff758c] opacity-20 rounded-full blur-3xl"
+      ></div>
 
-    <Title title="Stay Inspired" subTitle='Join our newsletter and be the first to discover new destinations, exclusive offers, and travel inspiration.'/>
-           
+      <Title
+        title="Stay Inspired"
+        subTitle="Join our newsletter and be the first to discover new destinations, exclusive offers, and travel inspiration."
+      />
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-6">
-                <input type="text" className="bg-white/10 px-4 py-2.5 border border-white/20 rounded outline-none max-w-66 w-full" placeholder="Enter your email" />
-                <button className="flex items-center justify-center gap-2 group bg-black px-4 md:px-7 py-2.5 rounded active:scale-95 transition-all">Subscribe
+      <form className="flex flex-col sm:flex-row items-center justify-center w-full gap-4 mt-8 max-w-2xl px-4">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="w-full sm:flex-1 px-5 py-3 rounded-xl bg-white/20 text-white border border-white/30 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#dc143c] transition"
+        />
+        <button
+          type="submit"
+          className="flex items-center justify-center gap-2 bg-[#dc143c] hover:bg-[#ff4f6e] px-6 py-3 text-white font-medium rounded-xl transition-all duration-200 active:scale-95 shadow-md"
+        >
+          Subscribe
+          <img
+            src={assets.arrowIcon}
+            alt="arrow-icon"
+            className="w-4 invert group-hover:translate-x-1 transition-transform"
+          />
+        </button>
+      </form>
 
-                    <img src={assets.arrowIcon} alt="arrow-icon" className='w-3.5 invert group-hover:translate-x-1 transition-all'/>
-                   
-                   
-                </button>
-            </div>
-            <p className="text-gray-500 mt-6 text-xs text-center">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
-        </div>
+      <p className="text-white/50 mt-6 text-xs text-center max-w-sm">
+        By subscribing, you agree to our{" "}
+        <a href="#" className="underline hover:text-white">
+          Privacy Policy
+        </a>{" "}
+        and consent to receive updates.
+      </p>
+    </div>
+  );
+};
 
-)
-}
-
-export default NewsLetter
+export default NewsLetter;
