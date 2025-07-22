@@ -16,6 +16,8 @@ const RoomDetails = () => {
 
   const [isAvailable, setIsAvailable] = useState(false);
 
+  const totalPrice = guests * room?.pricePerNight;
+
   // Check if the Room is Available
   const checkAvailability = async () => {
     try {
@@ -63,6 +65,7 @@ const RoomDetails = () => {
             checkOutDate,
             guests,
             paymentMethod: "Pay At Hotel",
+            totalPrice: totalPrice,
           },
           { headers: { Authorization: `Bearer ${await getToken()}` } }
         );
@@ -126,9 +129,7 @@ const RoomDetails = () => {
                 src={img}
                 onClick={() => setMainImage(img)}
                 className={`h-40 w-full object-cover rounded-xl cursor-pointer transition-all duration-300 shadow-sm ${
-                  mainImage === img
-                    ? "outline outline-2 outline-orange-400"
-                    : ""
+                  mainImage === img ? "outline outline-orange-400" : ""
                 }`}
                 alt={`Preview ${i}`}
               />
@@ -158,10 +159,18 @@ const RoomDetails = () => {
               ))}
             </div>
           </div>
-          <p className="text-2xl font-semibold mt-6 md:mt-0 text-orange-400">
-            ${room.pricePerNight}{" "}
-            <span className="text-base font-normal text-gray-400">/person</span>
-          </p>
+          <div className="mt-6 md:mt-0">
+            <p className="text-2xl font-semibold text-orange-400">
+              ${room.pricePerNight}{" "}
+              <span className="text-base font-normal text-gray-400">
+                /person
+              </span>
+            </p>
+            <p className="text-base text-white mt-1">
+              Total:{" "}
+              <span className="text-orange-300 font-medium">${totalPrice}</span>
+            </p>
+          </div>
         </div>
 
         {/* Booking Form */}

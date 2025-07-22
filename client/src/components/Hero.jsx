@@ -69,7 +69,7 @@ const Hero = () => {
       {/* Overlay Content */}
       <div
         className={`relative z-10 flex flex-col md:flex-row justify-center items-center h-full text-white px-6 md:px-20 max-w-full mx-auto
-        transition-opacity duration-1000 ease-in-out bg-gradient-to-b from-red-800/70 via-black/40  backdrop-blur-sm pt-40
+        transition-opacity duration-1000 ease-in-out bg-gradient-to-b from-red-800/70 via-black/40  pt-36 lg:pt-40
         ${contentVisible ? "opacity-100" : "opacity-0"}`}
       >
         {/* Left Content */}
@@ -108,7 +108,7 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="flex flex-wrap gap-8 mt-14">
+          <div className="flex flex-wrap gap-8 mt-4">
             {stats.map(({ label, value }) => (
               <div key={label} className="flex flex-col items-center">
                 <span className="text-3xl font-bold">{value}</span>
@@ -122,7 +122,7 @@ const Hero = () => {
           {/* Search Form */}
           <form
             onSubmit={onSearch}
-            className="w-full max-w-3xl mx-auto mt-16  bg-white  text-gray-800 rounded-2xl p-6 shadow-xl flex items-center gap-4"
+            className="w-full max-w-3xl mx-auto mt-4 lg:mt-16  bg-white  text-gray-800 rounded-2xl p-6 shadow-xl flex items-center gap-4"
           >
             {/* Destination Input */}
             <div className="flex flex-col flex-grow">

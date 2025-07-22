@@ -42,6 +42,25 @@ const MyBookings = () => {
     }
   };
 
+  const handleDownloadReceipt = async (bookingId) => {
+    try {
+      const response = await axios.get(
+        `/api/bookings/download-receipt/${bookingId}`,
+        {
+          responseType: "blob", // Important to receive PDF as binary
+        }
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `Booking_Receipt_${bookingId}.pdf`;
+      link.click();
+    } catch (error) {
+      console.error("Error downloading receipt:", error);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       fetchUserBookings();
@@ -127,11 +146,17 @@ const MyBookings = () => {
               {!booking.isPaid && (
                 <button
                   onClick={() => handlePayment(booking._id)}
-                  className="px-4 py-1.5 mt-3 text-xs border border-white/30 text-white rounded-full hover:bg-white/10"
+                  className="px-4 py-1.5 mt-3 text-xs border border-white/30 text-white rounded-full hover:bg-green-500/30"
                 >
                   Pay Now
                 </button>
               )}
+              <button
+                onClick={() => handleDownloadReceipt(booking._id)}
+                className="px-4 py-1.5 mt-3 text-xs border border-white/30 text-white rounded-full hover:bg-red-500/30"
+              >
+                Download Receipt
+              </button>
             </div>
           </div>
         ))}

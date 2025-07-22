@@ -15,7 +15,7 @@ const FeaturedDestination = () => {
 
   return (
     rooms.length > 0 && (
-      <section className="relative z-10 min-h-screen flex flex-col items-center px-6 md:px-16 lg:px-24 py-24 sm:mx-4 md:mx-16 lg:mx-0 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-white/10 backdrop-blur-lg border border-white/20  overflow-hidden">
+      <section className="relative z-10 min-h-screen flex flex-col items-center px-6 md:px-16 lg:px-24 py-24 sm:mx-4 md:mx-16 lg:mx-0 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-white/10  border border-white/20  overflow-hidden">
         {/* Background Overlay */}
         <div className="absolute inset-0 z-[-1] ">
           <div
@@ -25,7 +25,7 @@ const FeaturedDestination = () => {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
-              filter: "blur(6px) brightness(0.8)",
+              filter: "blur(5px) brightness(0.8)",
             }}
           />
         </div>
