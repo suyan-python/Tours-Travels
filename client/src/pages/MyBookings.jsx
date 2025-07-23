@@ -4,6 +4,8 @@ import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { jsPDF } from "jspdf";
+import logoBase64 from "../../public/logo1.png";
 
 const MyBookings = () => {
   const { axios, getToken, user } = useAppContext();
@@ -42,23 +44,122 @@ const MyBookings = () => {
     }
   };
 
-  const handleDownloadReceipt = async (bookingId) => {
-    try {
-      const response = await axios.get(
-        `/api/bookings/download-receipt/${bookingId}`,
-        {
-          responseType: "blob", // Important to receive PDF as binary
-        }
-      );
+  const handleDownloadReceipt = (booking) => {
+    generatePDFReceipt(booking);
+  };
 
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = `Booking_Receipt_${bookingId}.pdf`;
-      link.click();
-    } catch (error) {
-      console.error("Error downloading receipt:", error);
-    }
+  const primaryColor = "#dc143c";
+
+  const generatePDFReceipt = (booking) => {
+    const doc = new jsPDF();
+
+    const logoWidth = 50;
+    const logoHeight = 25;
+
+    // Logo at the top
+    doc.addImage(logoBase64, "PNG", 20, 10, logoWidth, logoHeight);
+
+    // --- Watermark logo ---
+    doc.setTextColor("#000");
+    doc.setFontSize(24);
+
+    doc.setDrawColor(primaryColor);
+    doc.setLineWidth(1);
+    doc.line(20, 35, 190, 35);
+
+    // Add watermark image in center with transparency
+    doc.setGState(new doc.GState({ opacity: 0.1 })); // Set opacity for watermark
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const wmWidth = 100;
+    const wmHeight = 50;
+    doc.addImage(
+      logoBase64,
+      "PNG",
+      (pageWidth - wmWidth) / 2,
+      (pageHeight - wmHeight) / 2,
+      wmWidth,
+      wmHeight
+    );
+    doc.setGState(new doc.GState({ opacity: 1 })); // Reset opacity
+
+    // Title
+    doc.setTextColor(primaryColor);
+    doc.setFontSize(24);
+    doc.text("Booking Receipt", 105, 25, null, null, "center");
+
+    // Text reset
+    doc.setTextColor("#000");
+    doc.setFontSize(12);
+
+    // Data fields
+    const startY = 45;
+    const lineHeight = 10;
+    let y = startY;
+
+    doc.text(`Booking ID:`, 20, y);
+    doc.text(`${booking._id}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Email:`, 20, y);
+    doc.text(`${booking.user?.email || "N/A"}`, 70, y); // <- use optional chaining
+    y += lineHeight;
+
+    doc.text(`Package Name:`, 20, y);
+    doc.text(`${booking.room?.packageName || booking.hotel?.name}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Agency Name:`, 20, y);
+    doc.text(`${booking.hotel?.name || "N/A"}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Agency Address:`, 20, y);
+    doc.text(`${booking.hotel?.address || "N/A"}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Check-In:`, 20, y);
+    doc.text(`${new Date(booking.checkInDate).toDateString()}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Check-Out:`, 20, y);
+    doc.text(`${new Date(booking.checkOutDate).toDateString()}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Guests:`, 20, y);
+    doc.text(`${booking.guests}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Total Price:`, 20, y);
+    doc.text(`$${booking.totalPrice}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Payment Method:`, 20, y);
+    doc.text(`${booking.paymentMethod}`, 70, y);
+    y += lineHeight;
+
+    doc.text(`Payment Status:`, 20, y);
+    doc.text(`${booking.isPaid ? "Paid" : "Payment Pending"}`, 70, y);
+    y += lineHeight;
+
+    // Footer line
+    doc.setDrawColor(primaryColor);
+    doc.setLineWidth(0.5);
+    doc.line(20, y + 10, 190, y + 10);
+
+    // Footer text
+    doc.setFontSize(10);
+    doc.setTextColor("#555");
+    doc.text(
+      `Thank you for booking with Tours & Travels Nepal.`,
+      105,
+      y + 20,
+      null,
+      null,
+      "center"
+    );
+
+    // Save PDF
+    doc.save(`Booking_Receipt_${booking._id}.pdf`);
   };
 
   useEffect(() => {
@@ -152,7 +253,7 @@ const MyBookings = () => {
                 </button>
               )}
               <button
-                onClick={() => handleDownloadReceipt(booking._id)}
+                onClick={() => handleDownloadReceipt(booking)}
                 className="px-4 py-1.5 mt-3 text-xs border border-white/30 text-white rounded-full hover:bg-red-500/30"
               >
                 Download Receipt
