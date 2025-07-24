@@ -28,8 +28,8 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Packages", path: "/rooms" },
-    { name: "Hotels", path: "/" },
-    { name: "About", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -124,23 +124,23 @@ const Navbar = () => {
               className={`text-sm font-medium rounded-full border px-5 py-1.5 transition-colors duration-300 ${
                 isScrolled
                   ? "border-primary text-primary hover:bg-primary/10"
-                  : "border-white text-white hover:bg-gray-200"
+                  : "border-white text-white hover:bg-red-500"
               }`}
             >
-              {isOwner ? "Dashboard" : "List Your Package"}
+              {isOwner ? "Dashboard" : "Register"}
             </button>
           )}
         </div>
 
         {/* Desktop Right: Search + User */}
         <div className="hidden md:flex items-center gap-6">
-          <img
+          {/* <img
             src={assets.searchIcon}
             alt="search"
             className={`h-6 cursor-pointer transition-all duration-500 ${
               isScrolled ? "invert" : "invert-0 brightness-150"
             }`}
-          />
+          /> */}
 
           {user ? (
             <UserButton>
@@ -218,7 +218,7 @@ const Navbar = () => {
               }}
               className="w-full text-left text-primary font-semibold border border-primary rounded-md px-4 py-2 hover:bg-primary/10 transition"
             >
-              {isOwner ? "Dashboard" : "List Your Package"}
+              {isOwner ? "Dashboard" : "Register"}
             </button>
           )}
 

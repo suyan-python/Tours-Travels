@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { assets, cities } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 import { toast } from "react-hot-toast";
+import register from "../assets/register.jpg";
 
 const HotelReg = () => {
   const { setShowHotelReg, axios, getToken, setIsOwner } = useAppContext();
@@ -26,7 +27,7 @@ const HotelReg = () => {
       );
 
       if (data.success) {
-        toast.success(data.message);
+        toast.success("Agency Registered Success");
         setIsOwner(true);
         setShowHotelReg(false);
       } else {
@@ -49,7 +50,7 @@ const HotelReg = () => {
       >
         {/* Left image */}
         <img
-          src={assets.regImage}
+          src={register}
           alt="Register Hotel"
           className="hidden md:block md:w-1/2 object-cover"
         />
@@ -64,8 +65,8 @@ const HotelReg = () => {
             className="absolute top-4 right-4 w-5 h-5 cursor-pointer"
           />
 
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
-            Register Your Hotel
+          <h2 className="text-3xl font-bold text-center text-primary mb-4">
+            Register Your Travel Agency
           </h2>
 
           <div className="flex flex-col gap-2">
@@ -73,14 +74,14 @@ const HotelReg = () => {
               htmlFor="name"
               className="text-sm font-semibold text-gray-700"
             >
-              Hotel Name
+              Agency Name
             </label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. The Grand Everest Hotel"
+              placeholder="e.g. Himalayas Trekking Travels"
               required
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
@@ -147,7 +148,7 @@ const HotelReg = () => {
 
           <button
             type="submit"
-            className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition duration-200"
+            className="mt-4 bg-primary hover:bg-red-700 text-white font-semibold py-2 rounded-lg transition duration-200"
           >
             Submit Registration
           </button>

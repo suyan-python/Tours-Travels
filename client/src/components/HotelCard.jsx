@@ -16,6 +16,7 @@ const HotelCard = ({ room, index }) => {
           src={room.images[0]}
           alt={room.packageName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
         />
       </div>
 

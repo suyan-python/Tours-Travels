@@ -178,7 +178,7 @@ const AllRooms = () => {
       {/* Left - Room Listings */}
       <div className="w-full lg:w-3/4">
         <div className="mb-10">
-          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl text-white">
+          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl text-primary font-bold">
             Our Packages
           </h1>
           <p className="text-base sm:text-lg text-gray-300 mt-3 max-w-2xl leading-relaxed">
@@ -190,7 +190,7 @@ const AllRooms = () => {
         {filteredRooms.map((room) => (
           <div
             key={room._id}
-            className="flex flex-col md:flex-row gap-6 py-8 border-b border-gray-700/30 last:border-0 group transition duration-300"
+            className="flex flex-col md:flex-row gap-6 py-8 border-[2px] border-slate-300/30 last:border-0 group transition duration-300 px-4 rounded-2xl"
           >
             {/* Image */}
             <img
@@ -246,7 +246,7 @@ const AllRooms = () => {
                 ))}
               </div>
 
-              <p className="text-lg font-semibold text-crimson mt-2 text-slate-300">
+              <p className="text-lg font-semibold text-crimson mt-2 text-primary">
                 ${room.pricePerNight}
                 <span className="text-sm font-normal text-white/60">
                   {" "}

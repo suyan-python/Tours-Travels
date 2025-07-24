@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #480009, #140004, #dc143c);
+  background: linear-gradient(135deg, #390007, #140004, #dc143c);
   background-size: 400% 400%;
   animation: gradientShift 10s ease infinite;
 }

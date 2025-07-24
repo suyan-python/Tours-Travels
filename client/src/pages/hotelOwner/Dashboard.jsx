@@ -11,6 +11,12 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  LineChart,
+  Line,
 } from "recharts";
 
 const Dashboard = () => {
@@ -20,6 +26,7 @@ const Dashboard = () => {
     bookings: [],
     totalBookings: 0,
     totalRevenue: 0,
+    revenueTrends: [],
   });
 
   const fetchDashboardData = async () => {
@@ -43,30 +50,58 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  const chartData = dashboardData.bookings.slice(0, 5).map((b) => ({
-    name: b.user.username,
-    amount: b.totalPrice,
+  const chartData = (dashboardData.bookings || []).slice(0, 5).map((b) => ({
+    name: b.user?.username || "Unknown",
+    amount: b.totalPrice || 0,
   }));
+
+  const pieData = [
+    {
+      name: "Completed",
+      value: (dashboardData.bookings || []).filter((b) => b.isPaid).length,
+    },
+    {
+      name: "Pending",
+      value: (dashboardData.bookings || []).filter((b) => !b.isPaid).length,
+    },
+  ];
+
+  // const lineChartData = (dashboardData.revenueTrends || []).map((item) => ({
+  //   date: item.date,
+  //   revenue: item.total,
+  // }));
+
+  const lineChartData = [
+    { date: "2023-07-01", revenue: 1200 },
+    { date: "2023-07-02", revenue: 1500 },
+    { date: "2023-07-03", revenue: 1700 },
+    { date: "2023-07-04", revenue: 1400 },
+    { date: "2023-07-05", revenue: 1800 },
+    { date: "2023-07-06", revenue: 2000 },
+    { date: "2023-07-07", revenue: 2200 },
+  ];
+
+  const COLORS = ["#22c55e", "#facc15"];
 
   return (
     <div className="mb-36 px-4 sm:px-8">
       <Title
         align="left"
         font="outfit"
-        title="Admin Dashboard"
-        subTitle="Track your listings and bookings through intelligent visuals and insights."
+        title="Dashboard"
+        subTitle="Track packages, revenue and performance with intelligent insights."
       />
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10">
-        <div className="bg-gradient-to-br from-indigo-500/50 to-purple-600/20 text-white rounded-2xl p-6 shadow-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
+        <div className="bg-gradient-to-br from-indigo-500/80 to-purple-600/50 text-white rounded-2xl p-6 shadow-xl">
           <p className="text-lg font-semibold">Total Bookings</p>
           <p className="text-3xl font-bold mt-2">
             {dashboardData.totalBookings}
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-teal-500/30 to-emerald-600/40 text-white rounded-2xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-teal-500/80 to-emerald-600/40 text-white rounded-2xl p-6 shadow-xl">
           <p className="text-lg font-semibold">Total Revenue</p>
           <p className="text-3xl font-bold mt-2">
             {currency}
@@ -74,27 +109,87 @@ const Dashboard = () => {
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-yellow-400/50 to-orange-500/60 text-white rounded-2xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-yellow-400/80 to-orange-500/50 text-white rounded-2xl p-6 shadow-xl">
           <p className="text-lg font-semibold">Recent Users</p>
           <p className="text-3xl font-bold mt-2">
             {dashboardData.bookings.length}
           </p>
         </div>
+
+        <div className="bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl p-6 shadow-xl">
+          <p className="text-lg font-semibold">AI Prediction</p>
+          <p className="text-sm mt-2">High demand expected next week</p>
+        </div>
       </div>
 
-      {/* Chart Section */}
+      {/* Graph Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+        {/* Bar Chart */}
+        <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+            Recent Booking Revenue
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="amount" fill="#6366f1" radius={[10, 10, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Pie Chart */}
+        <div className="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+            Booking Status
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) =>
+                  `${name}: ${(percent * 100).toFixed(0)}%`
+                }
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {pieData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Line Chart Section */}
       <div className="bg-white rounded-2xl p-6 shadow-lg mb-10">
         <h3 className="text-xl font-semibold mb-4 text-gray-700">
-          Recent Booking Revenue
+          Revenue Trends
         </h3>
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData}>
+          <LineChart data={lineChartData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="amount" fill="#6366f1" radius={[10, 10, 0, 0]} />
-          </BarChart>
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#10b981"
+              strokeWidth={2}
+            />
+          </LineChart>
         </ResponsiveContainer>
       </div>
 
@@ -111,8 +206,8 @@ const Dashboard = () => {
               <th className="text-center px-6 py-4 font-semibold">Status</th>
             </tr>
           </thead>
-          <tbody className="text-slate-200">
-            {dashboardData.bookings.map((item, index) => (
+          <tbody className="text-slate-500">
+            {(dashboardData.bookings || []).map((item, index) => (
               <tr
                 key={index}
                 className="border-t border-gray-200 hover:bg-gray-50 transition"

@@ -102,7 +102,7 @@ const MyBookings = () => {
     y += lineHeight;
 
     doc.text(`Email:`, 20, y);
-    doc.text(`${booking.user?.email || "N/A"}`, 70, y); // <- use optional chaining
+    doc.text(`${booking.user.email || "N/A"}`, 70, y);
     y += lineHeight;
 
     doc.text(`Package Name:`, 20, y);

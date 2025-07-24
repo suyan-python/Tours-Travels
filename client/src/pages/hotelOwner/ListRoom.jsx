@@ -24,19 +24,22 @@ const ListRoom = () => {
     }
   };
 
-  //  Toggle Availability of the Room
-
+  // Toggle Availability of the Room
   const toggleAvailability = async (roomId) => {
-    const { data } = await axios.post(
-      "/api/rooms/toggle-availability",
-      { roomId },
-      { headers: { Authorization: `Bearer ${await getToken()}` } }
-    );
-    if (data.success) {
-      toast.success(data.message);
-      fetchRooms();
-    } else {
-      toast.error(data.message);
+    try {
+      const { data } = await axios.post(
+        "/api/rooms/toggle-availability",
+        { roomId },
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        fetchRooms();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
@@ -54,52 +57,66 @@ const ListRoom = () => {
         title="Package Listings"
         subTitle="View, edit, or manage all listed packages. Keep the information up-to-date to provide the best experience for users."
       />
-      <p className="text-gray-500 mt-8">All Packages</p>
 
-      <div className="w-full max-w-3xl text-left mt-3 mb-35 rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md shadow-lg max-h-80 overflow-y-scroll">
-        <table className="w-full">
-          <thead className="bg-white/10 backdrop-blur-sm">
+      <p className="text-gray-700 mt-8 mb-4 font-medium">All Packages</p>
+
+      <div className="w-full max-w-3xl lg:max-w-7xl rounded-2xl border border-gray-300 bg-white shadow-lg max-h-80 overflow-y-auto">
+        <table className="w-full border-collapse">
+          <thead className="bg-gray-100">
             <tr>
-              <th className="py-3 px-4 text-gray-100 font-medium">Name</th>
-              <th className="py-3 px-4 text-gray-100 font-medium max-sm:hidden">
+              <th className="py-3 px-4 text-gray-800 font-semibold text-left">
+                Name
+              </th>
+              <th className="py-3 px-4 text-gray-800 font-semibold text-left max-sm:hidden">
                 Facility
               </th>
-              <th className="py-3 px-4 text-gray-100 font-medium">
+              <th className="py-3 px-4 text-gray-800 font-semibold text-left">
                 Price / person
               </th>
-              <th className="py-3 px-4 text-gray-100 font-medium text-center">
+              <th className="py-3 px-4 text-gray-800 font-semibold text-center">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="text-sm">
-            {rooms.map((item, index) => (
-              <tr key={index} className="hover:bg-white/5 transition">
-                <td className="py-3 px-4 text-white border-t border-white/20">
-                  {item.packageName}
-                </td>
-                <td className="py-3 px-4 text-white border-t border-white/20 max-sm:hidden">
-                  {item.amenities.join(",")}
-                </td>
-                <td className="py-3 px-4 text-white border-t border-white/20">
-                  {currency}
-                  {item.pricePerNight}
-                </td>
-                <td className="py-3 px-4 border-t border-white/20 text-sm text-white text-center">
-                  <label className="relative inline-flex items-center cursor-pointer gap-3">
-                    <input
-                      onChange={() => toggleAvailability(item._id)}
-                      type="checkbox"
-                      className="sr-only peer"
-                      checked={item.isAvailable}
-                    />
-                    <div className="w-12 h-7 bg-white/20 rounded-full peer peer-checked:bg-blue-500 transition-colors duration-200"></div>
-                    <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
-                  </label>
+          <tbody className="text-gray-700 text-sm">
+            {rooms.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="py-4 text-center">
+                  No packages found.
                 </td>
               </tr>
-            ))}
+            ) : (
+              rooms.map((item, index) => (
+                <tr
+                  key={item._id || index}
+                  className="hover:bg-gray-50 transition"
+                >
+                  <td className="py-3 px-4 border-t border-gray-200">
+                    {item.packageName}
+                  </td>
+                  <td className="py-3 px-4 border-t border-gray-200 max-sm:hidden">
+                    {item.amenities.join(", ")}
+                  </td>
+                  <td className="py-3 px-4 border-t border-gray-200">
+                    {currency}
+                    {item.pricePerNight}
+                  </td>
+                  <td className="py-3 px-4 border-t border-gray-200 text-center">
+                    <label className="inline-flex relative items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        checked={item.isAvailable}
+                        onChange={() => toggleAvailability(item._id)}
+                      />
+                      <div className="w-12 h-6 bg-gray-300 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 peer-checked:bg-blue-600 transition-colors duration-200"></div>
+                      <span className="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow-md transform peer-checked:translate-x-6 transition-transform duration-200"></span>
+                    </label>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -73,7 +73,16 @@ export const assets = {
   totalRevenueIcon,
 };
 
-export const cities = ["Kathmandu", "Pokhara", "Mustang ", "Rasuwa"];
+export const cities = [
+  "Kathmandu",
+  "Pokhara",
+  "Mustang ",
+  "Rasuwa",
+  "Lalitpur",
+  "Biratnagar",
+  "Dharan",
+  "Butwal",
+];
 
 // Exclusive Offers Dummy Data
 export const exclusiveOffers = [
@@ -124,7 +133,7 @@ export const testimonials = [
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
     rating: 4,
     review:
-     "Tour & Travels exceeded my expectations. The booking process was seamless, and the hotels were absolutely top-notch. Highly recommended!",
+      "Tour & Travels exceeded my expectations. The booking process was seamless, and the hotels were absolutely top-notch. Highly recommended!",
   },
   {
     id: 3,
@@ -134,7 +143,7 @@ export const testimonials = [
       "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200",
     rating: 5,
     review:
-     "Amazing service! I always find the best luxury accommodations through Tour & Travels. Their recommendations never disappoint!",
+      "Amazing service! I always find the best luxury accommodations through Tour & Travels. Their recommendations never disappoint!",
   },
 ];
 
@@ -151,18 +160,21 @@ export const facilityIcons = {
 export const roomCommonData = [
   {
     icon: assets.homeIcon,
-    title:"Stress-Free Experience",
-    description:  "From pickup to lodging, we ensure your travel is smooth and relaxing.",
+    title: "Stress-Free Experience",
+    description:
+      "From pickup to lodging, we ensure your travel is smooth and relaxing.",
   },
   {
     icon: assets.badgeIcon,
     title: "Trusted Travel Safety",
-    description: "We prioritize your safety with well-organized routes and verified local support.",
+    description:
+      "We prioritize your safety with well-organized routes and verified local support.",
   },
   {
     icon: assets.locationFilledIcon,
     title: "Scenic Locations",
-    description:  "Enjoy breathtaking views and serene landscapes across Nepal’s top regions.",
+    description:
+      "Enjoy breathtaking views and serene landscapes across Nepal’s top regions.",
   },
   {
     icon: assets.heartIcon,

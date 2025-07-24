@@ -15,6 +15,9 @@ import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext";
 import Loader from "./components/Loader";
 import Cookies from "./components/Cookies.jsx";
+import About from "./components/About.jsx";
+import Contact from "./components/Contact.jsx";
+import AnimatedIntro from "./components/AnimatedIntro.jsx";
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner");
@@ -24,11 +27,14 @@ const App = () => {
     <div>
       <Toaster />
       <Cookies />
+      <AnimatedIntro />
       {!isOwnerPath && <Navbar />}
       {showHotelReg && <HotelReg />}
       <div className="min-h-[70vh]">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/rooms" element={<AllRooms />} />
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/my-bookings" element={<MyBookings />} />

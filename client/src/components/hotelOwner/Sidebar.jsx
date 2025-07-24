@@ -14,25 +14,31 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="md:w-64 w-16 border-r h-full text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
-      {sidebarLinks.map((item, index) => (
-        <NavLink
-          to={item.path}
-          key={index}
-          end="/owner"
-          className={({ isActive }) =>
-            `flex items-center py-3 px-4 md:px-8 gap-3 ${
-              isActive
-                ? "border-r-4 md:border-r-[6px] bg-blue-600/10 border-blue-600 text-blue-600"
-                : "hover:bg-gray-100/90 border-white text-gray-700"
-            }`
-          }
-        >
-          <img src={item.icon} alt={item.name} className="min-h-6 min-w-6" />{" "}
-          <p className="md:block hidden text-center">{item.name}</p>{" "}
-        </NavLink>
-      ))}
-    </div>
+    <aside className="md:w-64 w-20 bg-white border-r border-gray-200 shadow-sm h-screen px-2 flex flex-col z-50 relative">
+      <nav className="space-y-2">
+        {sidebarLinks.map((item, index) => (
+          <NavLink
+            to={item.path}
+            key={index}
+            end
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-200 group ${
+                isActive
+                  ? "bg-blue-100 text-blue-700 font-semibold border-l-4 border-blue-600"
+                  : "hover:bg-gray-100 text-gray-700"
+              }`
+            }
+          >
+            <img
+              src={item.icon}
+              alt={item.name}
+              className="w-6 h-6 opacity-80 group-hover:opacity-100 transition"
+            />
+            <span className="hidden md:inline text-sm">{item.name}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
   );
 };
 

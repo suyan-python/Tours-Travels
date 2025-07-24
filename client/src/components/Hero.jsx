@@ -75,7 +75,7 @@ const Hero = () => {
         {/* Left Content */}
         <div className="flex-1 max-w-xl">
           {/* Tagline */}
-          <p className="bg-primary/90 px-5 py-1 rounded-full text-sm font-semibold w-fit drop-shadow-lg uppercase tracking-wide">
+          <p className="bg-primary/70 px-5 py-1 rounded-full text-sm font-semibold w-fit drop-shadow-lg uppercase tracking-wide">
             Your Journey Begins Here
           </p>
 
@@ -122,10 +122,10 @@ const Hero = () => {
           {/* Search Form */}
           <form
             onSubmit={onSearch}
-            className="w-full max-w-3xl mx-auto mt-4 lg:mt-16  bg-white  text-gray-800 rounded-2xl p-6 shadow-xl flex items-center gap-4"
+            className="w-full max-w-3xl mx-auto mt-6 lg:mt-16 bg-white text-gray-800 rounded-2xl p-4 sm:p-6 shadow-xl flex flex-col sm:flex-row gap-4"
           >
             {/* Destination Input */}
-            <div className="flex flex-col flex-grow">
+            <div className="flex flex-col flex-grow w-full">
               <label
                 htmlFor="destinationInput"
                 className="text-sm font-medium mb-2 flex items-center gap-2 text-gray-800"
@@ -157,7 +157,7 @@ const Hero = () => {
             {/* Search Button */}
             <button
               type="submit"
-              className="bg-primary text-white flex items-center justify-center px-5 py-3 rounded-lg hover:bg-primary-dark transition-colors focus:outline-none focus:ring-4 focus:ring-primary/50"
+              className="w-full sm:w-auto bg-primary text-white flex items-center justify-center px-5 py-3 rounded-lg hover:bg-primary-dark transition-colors focus:outline-none focus:ring-4 focus:ring-primary/50"
               aria-label="Search"
             >
               <FiSearch size={20} />
