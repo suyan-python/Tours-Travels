@@ -1,6 +1,6 @@
 import React from "react";
 import Suyan from "../assets/team/suyan.png";
-import bimal from "../assets/team/bimal.png";
+import bimal from "../assets/team/bimal.JPG";
 import byapak from "../assets/team/bayapak.png";
 import rupesh from "../assets/team/rupesh.png";
 
